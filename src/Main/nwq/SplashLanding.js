@@ -7,20 +7,35 @@ import LineVisualizer from './Equalizer';
 import SplashLandingGrid from './SplashLandingGrid';
 import Footer from './Footer';
 import TopMenu from './TopMenu';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function SplashLanding({index, newAction, openGuestBook, setGuestBook, setShowWallet, showWallet, titleImage}) {
   const screenWidth = window.innerWidth;
   const [nftList, setNftList] = React.useState([]);  
   const [play, setPlay] = React.useState(false);
+  let navigate = useNavigate();
 
   React.useEffect(async () => {    
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('errorCode')) {
+    const urlParams = window.location.search;
+    const urlObj = new URLSearchParams(document.location.search);
+    window.history.pushState({}, document.title, "/" + "");
+    if (urlParams.includes('errorCode')) {
       newAction({
-        errorMsg: "There was an error while processing the transaction!", errorMsgDesc: urlParams.get('errorCode'),
+        errorMsg: "There was an error while processing the transaction!", errorMsgDesc: urlObj.get('errorCode'),
       }); 
-    } else if (urlParams.has('transactionHashes')) {
+    } else if (urlParams.includes('transactionHashes')) {
+      
+      console.log("urlObj.get('contract'): ", urlObj.get('contract'))
+      await fetch(`https://daorecords.io:8443/update/nfts_for_owner?owner=${window.accountId}&contract=${urlObj.get('contract')}`)
+        .then((res) => res.json())
+        .then((response) => {
+          if (response.success) console.log("List of NFTs for user updated (server side)");
+          else console.error("Error while updating entries for user: ", response.error);
+        })
+        .catch((err) => console.error(`Error while updating the list of NFTs for owner ${window.accountId}!`, err));
+
+      //navigate('/my-nfts');
       newAction({
         successMsg: "Success!", successMsgDesc: "You bought a new NFT!",
       });

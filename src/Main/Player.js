@@ -43,19 +43,16 @@ const dark = true;
 
   function PlayIcon() {
     return (
-      <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M23.25 18.75L42.75 30L23.25 41.25V18.75Z" fill={color}/>
-        <circle cx="30" cy="30" r="29.5" stroke={color}/>
+      <svg width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fillRule="evenodd" ule="evenodd" d="M23.25 18.75L42.75 30L23.25 41.25V18.75Z" fill="#FF0000"/>
       </svg>
     );
   }
   
   function PauseIcon() {
     return(
-      <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20 16H26V44H20V16Z" fill={color}/>
-        <path d="M34 16H40V44H34V16Z" fill={color}/>
-        <circle cx="30" cy="30" r="29.5" stroke={color}/>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fillRule="evenodd" ule="evenodd" d="M10 4H5V20H10V4ZM19 4H14V20H19V4Z" fill="#FF0000"/>
       </svg>
     );
   }
