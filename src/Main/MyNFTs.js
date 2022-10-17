@@ -186,7 +186,7 @@ export default function MyNFTs({newAction, openGuestBook, setGuestBook, setShowW
       )}
     </>
   );
-}
+} 
 
 const mockFilters = [
   {
