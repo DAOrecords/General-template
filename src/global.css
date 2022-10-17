@@ -2495,7 +2495,7 @@ input[type="range"] {
 }
 #splashTitleWeek10 img {
   position: relative;
-  width: 26vw;
+  max-width: 26vw;
   margin-top: 0vw;
   z-index: 4;
 }
