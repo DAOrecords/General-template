@@ -292,7 +292,7 @@ nav {
   background: #FFFFFF;
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
   border-radius: 1px;
-  right: 478px;
+  right: 400px;
   top: var(--nav-size);
   z-index: 5;
 }
@@ -1307,7 +1307,7 @@ input[type="range"] {
   position: absolute;
   top: var(--nav-size);
   right: var(--spacing-3);
-  width: 480px;
+  width: 399px;
   background-color: var(--box-color);
   box-shadow: 0 0 6px rgba(35, 173, 278, 1);
   z-index: 9998;

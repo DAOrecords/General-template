@@ -42,10 +42,10 @@ export default function TopMenuSplash1({setShowWallet, showWallet}) {
           <div id="dropdownContainer" className="mobileDropdownContainer">
               <Link to={'/my-nfts'} className="hamburgerElement">My NFTs</Link>
               {/** List of the drops, we will append this as we go */}
-              <Link to={'/weektwo'} className="controlsButton hamburgerElement">Week Two</Link>
-              <Link to={'/weekthree'} className="controlsButton hamburgerElement">Week Three</Link>
-              <Link to={'/weekfour'} className="controlsButton hamburgerElement">Week Four</Link>
-              <Link to={'/weekfive'} className="controlsButton hamburgerElement">Week Five</Link>
+              <Link to={'/FunkDaMentals'} onClick={() => setMenuOpen(false)} className="controlsButton hamburgerElement">FunkDaMentals</Link>
+              <Link to={'/4eVaH'} onClick={() => setMenuOpen(false)} className="controlsButton hamburgerElement">4eVaH</Link>
+              <Link to={'/SteppaInnaDAO'} onClick={() => setMenuOpen(false)} className="controlsButton hamburgerElement">Steppa Inna DAO</Link>
+              <Link to={'/MusicforGuzheng'} onClick={() => setMenuOpen(false)} className="controlsButton hamburgerElement">Music for Guzheng</Link>
           </div>
         )}
       </>
@@ -57,16 +57,17 @@ export default function TopMenuSplash1({setShowWallet, showWallet}) {
           <img src={logo} alt={'SoundSplash'} />
         </div>
         <Link to={''} className="controlsButton menuButton"></Link>
-
+        <button onClick={splashDropdownClicked} className="controlsButton menuButton">Drops</button>
         <Link to={'/my-nfts'} className="controlsButton menuButton">My NFTs</Link>
 
         {splashMenuOpen && (
           <div id="popupWrapper" onClick={() => setSplashMenuOpen(false)}>
             <div id="dropdownContainer"  onClick={(e) => e.stopPropagation()}>
               {/** List of the drops, we will append this as we go */}
-              <Link to={'/weektwo'} className="controlsButton menuButton">Week Two</Link>
-              <Link to={'/weekthree'} className="controlsButton menuButton">Week Three</Link>
-              <Link to={'/weekfour'} className="controlsButton menuButton">Week Four</Link>
+              <Link to={'/FunkDaMentals'} onClick={() => setSplashMenuOpen(false)} className="controlsButton menuButton">FunkDaMentals</Link>
+              <Link to={'/4eVaH'} onClick={() => setSplashMenuOpen(false)} className="controlsButton menuButton">4eVaH</Link>
+              <Link to={'/SteppaInnaDAO'} onClick={() => setSplashMenuOpen(false)} className="controlsButton menuButton">Steppa Inna DAO</Link>
+              <Link to={'/MusicforGuzheng'} onClick={() => setSplashMenuOpen(false)} className="controlsButton menuButton">Music for Guzheng</Link>
             </div>
           </div>
         )}

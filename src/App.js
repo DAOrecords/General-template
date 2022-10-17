@@ -98,7 +98,7 @@ export default function App() {
         <Route 
           exact
           path='/'
-          element={<Navigate replace to="/first" />}
+          element={<Navigate replace to="/FunkDaMentals" />}
         />
 
         <Route 
@@ -129,7 +129,7 @@ export default function App() {
         {/** NFT Landing Pages */}
         <Route 
           exact
-          path='first'
+          path='FunkDaMentals'
           element={
             <SplashLanding 
               index={0} newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} 
@@ -139,7 +139,7 @@ export default function App() {
         />
         <Route 
           exact
-          path='second'
+          path='4eVaH'
           element={
             <SplashLanding 
               index={1} newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} 
@@ -149,7 +149,7 @@ export default function App() {
         />
         <Route 
           exact
-          path='third'
+          path='SteppaInnaDAO'
           element={
             <SplashLanding 
               index={2} newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} 
@@ -159,7 +159,7 @@ export default function App() {
         />
         <Route 
           exact
-          path='fourth'
+          path='MusicforGuzheng'
           element={
             <SplashLanding 
               index={3} newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} 
