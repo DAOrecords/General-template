@@ -3,10 +3,9 @@ import Footer from './Footer';
 import ThePicture from './ThePicture';
 import InfoBox from './InfoBox';
 import SongName from './SongName';
-import titleImage from '../../assets/title_beat1.png';
 
 
-export default function SplashLandingGrid({tokenId, metadata, newAction, playing, setPlay}) {
+export default function SplashLandingGrid({tokenId, metadata, newAction, playing, setPlay, titleImage}) {
   const screenWidth = window.innerWidth;
   const screenHeight = window.innerHeight;
   const overflow = ((screenHeight < 718) && (screenWidth > 1200)) ? ({ overflowY: "scroll" }) : null;

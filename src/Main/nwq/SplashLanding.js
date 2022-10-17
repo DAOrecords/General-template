@@ -9,7 +9,7 @@ import Footer from './Footer';
 import TopMenu from './TopMenu';
 
 
-export default function SplashLanding({index, newAction, openGuestBook, setGuestBook, setShowWallet, showWallet}) {
+export default function SplashLanding({index, newAction, openGuestBook, setGuestBook, setShowWallet, showWallet, titleImage}) {
   const screenWidth = window.innerWidth;
   const [nftList, setNftList] = React.useState([]);  
   const [play, setPlay] = React.useState(false);
@@ -55,6 +55,7 @@ export default function SplashLanding({index, newAction, openGuestBook, setGuest
             newAction={newAction}
             playing={play}
             setPlay={setPlay}
+            titleImage={titleImage}
           />
         </main>
 
