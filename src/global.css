@@ -2079,6 +2079,7 @@ input[type="range"] {
   justify-content: flex-end;
   position: absolute;
   padding-right: 120px;
+  margin-top: 8px;
   top: 0;
   left: 0;
   z-index: 3;

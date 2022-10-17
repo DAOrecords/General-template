@@ -38,7 +38,7 @@ export default function InfoBox({tokenId, metadata, newAction}) {
       .then((res) => res.json())
       .then((json) => setArtistList(JSON.parse(JSON.parse(json.collab_list))))
       .catch((err) => console.error("Error while fetching artist list ", err));
-  }, []);
+  }, [rootID]);
 
   const fetchLink = "https://daorecords.io:8443/fetch?cid=" + extra.music_cid;                 // Fetch url for our server
 
