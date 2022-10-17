@@ -40,14 +40,6 @@ export default function InfoBox({tokenId, metadata, newAction}) {
       .catch((err) => console.error("Error while fetching artist list ", err));
   }, []);
 
-  const aList = [
-    {
-      name: "Ras Muhamad",
-      twitter: "https://twitter.com/rasmuhamadri",
-      insta: "https://www.instagram.com/ras_muhamad/?hl=en",
-    },
-  ]
-
   const fetchLink = "https://daorecords.io:8443/fetch?cid=" + extra.music_cid;                 // Fetch url for our server
 
 
