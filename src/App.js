@@ -11,16 +11,12 @@ import Ok from './Activity/Ok';
 import Err from './Activity/Err';
 import MyNFTs from './Main/MyNFTs';
 import Withdraw from './Admin/Withdraw';
-import Week12SplashLanding from './Main/Week12/SplashLanding';
 import titleImage1 from './assets/title_beat1.png';
 import titleImage2 from './assets/title_beat2.png';
 import titleImage3 from './assets/title_beat3.png';
 import titleImage4 from './assets/title_beat4.png';
 import SplashLanding from './Main/nwq/SplashLanding';
-import Migration from './Migration';
 import TransferModal from './Main/TransferModal';
-import Troaco from './Main/Troaco/Troaco';
-import Landing from './Main/Landing';
 
 
 export default function App() {
@@ -104,16 +100,7 @@ export default function App() {
           path='/'
           element={<Navigate replace to="/newlanding" />}
         />
-        <Route 
-          exact
-          path='init'
-          element={ configObj.admin?<button onClick={initContract}>INIT</button> : <p>loading...</p> }
-        />
-        <Route
-          exact
-          path='migration'
-          element={<Migration contractName={configObj.contractName} />}
-        />
+
         <Route 
           exact
           path='admin'
@@ -138,23 +125,8 @@ export default function App() {
           path='/contract/nfts/:contract/:tokenId'
           element={<TransferModal newAction={newAction} />}
         />
-        <Route 
-          exact
-          path='landing'
-          element={
-            <Landing newAction={newAction} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowWallet={setShowWallet} showWallet={showWallet} />
-          }
-        />
+
         {/** NFT Landing Pages */}
-        <Route 
-          exact
-          path='testnft0926'
-          element={
-            <Week12SplashLanding
-              index={9} newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} 
-            />
-          }
-        />
         <Route 
           exact
           path='first'
@@ -195,34 +167,7 @@ export default function App() {
             />
           }
         />
-        <Route 
-          exact
-          path='newlanding'
-          element={
-            <SplashLanding 
-              index={13} newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet}
-              titleImage={titleImage1}
-            />
-          }
-        />
-        <Route 
-          exact
-          path='troaco'
-          element={
-            <Troaco 
-              newAction={newAction} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} isMyNfts={false}
-            />
-          }
-        />
-        <Route 
-          exact
-          path='troacomynfts'
-          element={
-            <Troaco 
-              newAction={newAction} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} isMyNfts={true}
-            />
-          }
-        />
+
         <Route 
           exact
           path='withdraw'
