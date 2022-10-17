@@ -3,7 +3,7 @@ import Footer from './Footer';
 import ThePicture from './ThePicture';
 import InfoBox from './InfoBox';
 import SongName from './SongName';
-import titleImage from '../../assets/splash10_title.png';
+import titleImage from '../../assets/title_beat1.png';
 
 
 export default function SplashLandingGrid({tokenId, metadata, newAction, playing, setPlay}) {
@@ -13,7 +13,7 @@ export default function SplashLandingGrid({tokenId, metadata, newAction, playing
 
   return (
     <div id="splashLandingGrid5" style={overflow}>
-      <SongName title={""}  />
+      <SongName title={""} image={titleImage} />
       <ThePicture imageCID={metadata.media} playing={playing} setPlay={setPlay} />
       <InfoBox
         tokenId={tokenId}

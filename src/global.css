@@ -2489,7 +2489,7 @@ input[type="range"] {
 #splashTitleWeek10 img {
   position: relative;
   width: 26vw;
-  margin-top: -3vw;
+  margin-top: 0vw;
   z-index: 4;
 }
 #splash5BackgroundVideo {
@@ -2531,6 +2531,11 @@ input[type="range"] {
 }
 .splashSmallInfoBoxNearPrice {
   margin-bottom: 0;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: 0.01em;
 }
 .splashSmallInfoBoxDollarPrice {
   margin-top: 0;
@@ -2788,23 +2793,28 @@ input[type="range"] {
   cursor: pointer;
 }
 #splashBuy12 {
-  margin-left: calc((386px / 2) + 44px);
+  margin-left: calc(486px - 57px);
   margin-top: var(--spacing-2);
   position: relative;
   z-index: 2;
 }
 #splashBuy12 button {
-  background: #FFD12E;
-  color: #333333;
-  border-radius: 50px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  width: 115px;
+  height: 52px;
+  font-family: GeneralSans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 160%;
+  color: #FFFFFF;
+  background: #8247E5;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.08);
   border: none;
-  width: 96px;
-  height: 39px;
+  border-radius: 3px;
 }
 #splashBuy12 button:hover {
   color: #F2F2F2;
-  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.25);
+  background: #A673EF;
   cursor: pointer;
 }
 
