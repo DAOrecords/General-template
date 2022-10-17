@@ -16,7 +16,7 @@ export default function Buy({tokenId, price, newAction, fontSettings}) {
     }
 
     const buyPromise = new Promise(async (resolve, reject) => {
-      const buyResult = await buyNFTfromVault(tokenId, price);
+      const buyResult = await buyNFTfromVault("nft.beatdao.near", tokenId, price);
       if (buyResult) {
         resolve("Buying the NFT was successul (message from promise)");
       } else {

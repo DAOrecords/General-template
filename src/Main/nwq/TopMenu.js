@@ -57,6 +57,7 @@ export default function TopMenuSplash1({setShowWallet, showWallet}) {
           <img src={logo} alt={'SoundSplash'} />
         </div>
         <Link to={''} className="controlsButton menuButton"></Link>
+
         <Link to={'/my-nfts'} className="controlsButton menuButton">My NFTs</Link>
 
         {splashMenuOpen && (
