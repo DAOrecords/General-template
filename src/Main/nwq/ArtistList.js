@@ -3,13 +3,7 @@ import React from 'react'
 
 export default function  Week2ArtistList({list, fontSettings}) {
   const style = {
-    fontFamily: fontSettings.secondFamily,
-    color: "#000000",
-    fontSize: "14px",
-    lineHeight: "17px",
-    textTransform: "uppercase",
-    fontWeight: "700",
-    letterSpacing: "0.05em",
+
   }
 
   return (

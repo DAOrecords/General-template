@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import AudioPlayerNftStorage from '../../Common/AudioPlayerNftStorage';
 import Box from './Box';
 import Desc from './Desc';
@@ -7,6 +7,11 @@ import Buy from './Buy';
 
 
 export default function InfoBox({tokenId, metadata, newAction}) {
+  const [artistList, setArtistList] = useState([]);
+  const lastDash = tokenId.lastIndexOf('-');
+  const dashes = tokenId.match(/-/g);
+  let rootID = tokenId.slice(0, lastDash);
+  if (dashes.length === 2) rootID = tokenId;                      // Root NFT
   const screenWidth = window.innerWidth;
   const screenHeight = window.innerHeight;
   const extra = JSON.parse(metadata.extra);
@@ -26,6 +31,15 @@ export default function InfoBox({tokenId, metadata, newAction}) {
     normalSize: '12px'
   }
 
+  useEffect(async () => {
+    const contract = window.contract.contractId;
+    console.log("fetch: ", `https://daorecords.io:8443/get/collaborators?root_id=${rootID}&contract=${contract}`)
+    await fetch(`https://daorecords.io:8443/get/collaborators?root_id=${rootID}&contract=${contract}`)
+      .then((res) => res.json())
+      .then((json) => setArtistList(JSON.parse(JSON.parse(json.collab_list))))
+      .catch((err) => console.error("Error while fetching artist list ", err));
+  }, []);
+
   const aList = [
     {
       name: "Ras Muhamad",
@@ -41,7 +55,7 @@ export default function InfoBox({tokenId, metadata, newAction}) {
     <div id="splash5RightContainer">
       <div id="splashInfoFlex" >
         <div id="Week2splashArtistDescBox">
-          <ArtistList fontSettings={fontSettings} list={aList} />
+          <ArtistList fontSettings={fontSettings} list={artistList} />
           <Desc desc={metadata.description} fontSettings={fontSettings} />
         </div>
         {safariAgent &&  <div className="previewBoxItem" style={{ marginTop: "32px" }}>
