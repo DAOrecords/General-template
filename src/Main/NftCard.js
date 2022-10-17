@@ -38,7 +38,7 @@ export default function NftCard({playClicked, artistList, openTransfer, index, m
 
   return (
     <>
-      <button onClick={() => openTransfer(index)} className="nftCard">
+      <button onClick={(e) => playClicked(index, e)} className="nftCard">
         <div className="nftCardImageContainer">
           <img src={picture} alt={'nft-image'}></img>
           <img src={playIcon} alt={'P'} className="nftCardPlay" onClick={(e) => playClicked(index, e)}></img>
