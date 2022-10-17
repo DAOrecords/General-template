@@ -7,8 +7,6 @@ import LineVisualizer from './Equalizer';
 import SplashLandingGrid from './SplashLandingGrid';
 import Footer from './Footer';
 import TopMenu from './TopMenu';
-import bgVideo from '../../assets/metro35.mp4';
-import ObjectContainer from './ObjectContainer';
 
 
 export default function SplashLanding({index, newAction, openGuestBook, setGuestBook, setShowWallet, showWallet}) {
@@ -45,25 +43,22 @@ export default function SplashLanding({index, newAction, openGuestBook, setGuest
     <>
       {openGuestBook && ( <GuestBook openModal={openGuestBook} newAction={newAction} setOpenModal={setGuestBook} /> )}
       <ToastContainer position="bottom-right" autoClose={5000} />
-      <div id='colorContainerSplashTwelve'>
-        <div id='svgContainer'>
-          <TopMenu setShowWallet={setShowWallet} showWallet={showWallet} />
+      <div id='beatDAObackground'>
+        <TopMenu setShowWallet={setShowWallet} showWallet={showWallet} />
 
-          <main>
-            <LineVisualizer musicCID={JSON.parse(nftList[index].metadata.extra).music_cid} play={play} />
-            <ObjectContainer />
+        <main>
+          <LineVisualizer musicCID={JSON.parse(nftList[index].metadata.extra).music_cid} play={play} />
 
-            <SplashLandingGrid
-              tokenId={nftList[index].token_id}
-              metadata={nftList[index].metadata}
-              newAction={newAction}
-              playing={play}
-              setPlay={setPlay}
-            />
-          </main>
+          <SplashLandingGrid
+            tokenId={nftList[index].token_id}
+            metadata={nftList[index].metadata}
+            newAction={newAction}
+            playing={play}
+            setPlay={setPlay}
+          />
+        </main>
 
-          {(screenWidth > 1200)&& <Footer />}
-        </div>
+        {(screenWidth > 1200)&& <Footer />}
       </div>
     </>
   )

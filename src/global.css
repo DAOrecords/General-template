@@ -3141,6 +3141,11 @@ input[type="range"] {
   background-position: center;
 }
 
+#beatDAObackground {
+  background: url('./assets/background.jpg');
+  background-size: cover;
+}
+
 
 #nftBuyButton {
   background: url('./assets/buy.svg') no-repeat;
