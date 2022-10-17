@@ -48,7 +48,6 @@ export default function NftCard({playClicked, artistList, openTransfer, index, m
             {metadata.title}
           </p>
           <ul className="nftCardArtistList">
-            not implemented
             {false && artistList.map((artist, i) => (
               <li key={"artist-" + i} className="nftCardArtistListElement">
                 <img src={placeholder} alt={''}></img>
@@ -61,10 +60,10 @@ export default function NftCard({playClicked, artistList, openTransfer, index, m
             <p className="nftCardNearPrice">{formatNumber(priceInNear,3)}</p>
             <img src={nearLogo} alt={'N'}></img>
           </div>
-          <div className="nftCardButtons">
+          {false && <div className="nftCardButtons">
             <button onClick={(e) => stakeClicked(e)} className="nftCardSecondaryButton">Stake</button>
             <button onClick={(e) => sellClicked(e)} className="nftCardPrimaryButton">Sell</button>
-          </div>
+          </div>}
         </div>
       </button>
     </>
