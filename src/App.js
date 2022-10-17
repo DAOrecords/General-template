@@ -23,6 +23,7 @@ import Week9SplashLanding from './Main/Week9/SplashLanding';
 import Week10SplashLanding from './Main/Week10/SplashLanding';
 import Week11SplashLanding from './Main/Week11/SplashLanding';
 import Week12SplashLanding from './Main/Week12/SplashLanding';
+import NewSplashLanding from './Main/nwq/SplashLanding';
 import Migration from './Migration';
 import TransferModal from './Main/TransferModal';
 import ReactDraggableOnly from './Experiment/ReactDraggableOnly';
@@ -111,7 +112,7 @@ export default function App() {
         <Route 
           exact
           path='/'
-          element={<Navigate replace to="/landing" />}
+          element={<Navigate replace to="/newlanding" />}
         />
         <Route 
           exact
@@ -268,6 +269,15 @@ export default function App() {
           path='weektwelve'
           element={
             <Week12SplashLanding 
+              index={13} newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet}
+            />
+          }
+        />
+        <Route 
+          exact
+          path='newlanding'
+          element={
+            <NewSplashLanding 
               index={13} newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet}
             />
           }

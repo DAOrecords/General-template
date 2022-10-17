@@ -3,6 +3,7 @@ import Footer from './Footer';
 import ThePicture from './ThePicture';
 import InfoBox from './InfoBox';
 import SongName from './SongName';
+import titleImage from '../../assets/splash10_title.png';
 
 
 export default function SplashLandingGrid({tokenId, metadata, newAction, playing, setPlay}) {

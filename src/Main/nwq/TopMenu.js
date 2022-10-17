@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import hamburger from '../assets/hamburger.svg'
+import hamburger from '../../assets/hamburger.svg'
 import 'regenerator-runtime/runtime';
-import Wallet from './WalletSplash1';
-import logo from '../assets/beatSplashDao.png';
+import Wallet from './Wallet';
+import logo from '../../assets/beatSplashDao.png';
 
 
-/** Top Menu for Main */
+/** Top Menu for new */
 export default function TopMenuSplash1({setShowWallet, showWallet}) {
   const screenWidth = window.innerWidth;
   const [menuOpen, setMenuOpen] = useState(false);

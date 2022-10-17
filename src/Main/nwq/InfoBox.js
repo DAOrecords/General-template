@@ -1,5 +1,5 @@
 import React from 'react';
-import AudioPlayerNftStorage from '../Common/AudioPlayerNftStorage';
+import AudioPlayerNftStorage from '../../Common/AudioPlayerNftStorage';
 import Box from './Box';
 import Desc from './Desc';
 import ArtistList from './ArtistList';
@@ -39,7 +39,7 @@ export default function InfoBox({tokenId, metadata, newAction}) {
 
   return (
     <div id="splash5RightContainer">
-      <div id="splashInfoFlex" className="Week2splashInfoFlex Week2splashInfoFlex" >
+      <div id="splashInfoFlex" >
         <div id="Week2splashArtistDescBox">
           <ArtistList fontSettings={fontSettings} list={aList} />
           <Desc desc={metadata.description} fontSettings={fontSettings} />
