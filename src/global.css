@@ -337,7 +337,7 @@ footer ul {
   align-items: center;
   margin: 0;
   padding: 0;
-  margin-left: 120px;
+  margin-left: 64px;
   margin-right: 120px;
   list-style: none;
 }
@@ -352,6 +352,13 @@ footer ul li a {
   letter-spacing: 0.05em;
   color: #121212;
   font-weight: 400;
+}
+
+#beatLogo {
+  position: absolute;
+  z-index: 2;
+  bottom: 0;
+  right: 64px;
 }
 
 main {
@@ -2172,7 +2179,7 @@ input[type="range"] {
 
 .splashLogo {
   flex-grow: 1;
-  padding-left: 120px;
+  padding-left: 64px;
 }
 .daoLogo {
   flex-grow: 1;
