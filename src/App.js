@@ -98,7 +98,7 @@ export default function App() {
         <Route 
           exact
           path='/'
-          element={<Navigate replace to="/newlanding" />}
+          element={<Navigate replace to="/first" />}
         />
 
         <Route 
