@@ -392,6 +392,9 @@ main {
     height: 100vh;
     width: 100vw;
   }
+  #beatLogo {
+    display: none;
+  }
 }
 #adminLogo {
   display: block;
@@ -625,6 +628,12 @@ main {
 .mainMenuButton:hover {
   text-decoration: underline;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 1200px) {
+  .mainControlsLast {
+    padding-right: 8px;
+  }
 }
 
 #mynftsFooter {
@@ -2922,7 +2931,7 @@ input[type="range"] {
   }
   #splashTitleWeek10 img {
     height: auto;
-    width: 100%;
+    max-width: 80%;
   }
   #splashBuy3 {
     margin-left: 0;
