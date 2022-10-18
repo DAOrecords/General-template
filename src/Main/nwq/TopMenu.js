@@ -53,9 +53,9 @@ export default function TopMenuSplash1({setShowWallet, showWallet}) {
   } else {                                                // This is the normal view
     return (
       <nav id="splash-1-nav">
-        <div className='splashLogo'>
+        <Link to={'/'} className='splashLogo'>
           <img src={logo} alt={'SoundSplash'} />
-        </div>
+        </Link>
         <Link to={''} className="controlsButton menuButton"></Link>
         <button onClick={splashDropdownClicked} className="controlsButton menuButton">Drops</button>
         <Link to={'/my-nfts'} className="controlsButton menuButton">My NFTs</Link>
