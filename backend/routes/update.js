@@ -64,6 +64,8 @@ router.get('/nfts_for_owner', async function (req, res) {
           console.error("Insert error: ", err);
         }));
     });
+
+    res.send({success: true, message: "Done."});
   } catch (error) {
     console.error("There was an error while trying to fetch the nft tokens to update the 'nfts_by_owner' table: ", error);
     res.send("There was an error while trying to fetch the nft tokens to update the 'nfts_by_owner' table: ", error);
@@ -122,7 +124,9 @@ router.get('/all_nfts_for_owner', async function (req, res) {
             console.error("Insert error: ", err);
           }));
       });
-    })
+    });
+
+    res.send({success: true, message: "Done."});
   } catch (error) {
     console.error("(/all_nfts_for_owner) There was an error while trying to fetch the nft tokens to update the 'nfts_by_owner' table: ", error);
     res.send("(/all_nfts_for_owner) There was an error while trying to fetch the nft tokens to update the 'nfts_by_owner' table: ", error);
@@ -163,6 +167,7 @@ router.get('/single_nft', async function (req, res) {
         console.error("Insert error: ", err);
       }));
 
+      res.send({success: true, message: "Done."});
   } catch (error) {
     console.error(`There was an error while trying to update entry for a single NFT for ${req.query.nft_id}, in the 'nfts_by_owner' table. Error message: `, error);
     res.send(`There was an error while trying to update entry for a single NFT for ${req.query.nft_id}, in the 'nfts_by_owner' table. Error message: `, error);
