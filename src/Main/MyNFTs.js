@@ -44,6 +44,15 @@ export default function MyNFTs({newAction, openGuestBook, setGuestBook, setShowW
   let navigate = useNavigate();
 
   useEffect(async () => {
+    // Update list of NFTs for owner on the backend, the list should be up-to-date after BUY action, but we are doing this anyway.
+    await fetch(`https://daorecords.io:8443/update/all_nfts_for_owner?owner=${window.accountId}`)
+      .then((res) => res.json())
+      .then((response) => {
+        if (response.success) console.log("List of NFTs for user updated (server side)");
+        else console.error("Error while updating entries for user: ", response.error);
+      })
+      .catch((err) => console.error(`Error while updating the list of NFTs for owner ${window.accountId}!`, err));
+
     // Get the list of NFTs the user owns, from the server
     const nftList = await getListForAccount();
     console.log("nftList", nftList);
