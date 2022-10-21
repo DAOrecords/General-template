@@ -109,15 +109,15 @@ router.get('/all_nfts_for_owner', async function (req, res) {
       ");
   
       response.map(async (nft) => {
-        const uniqID = req.query.contract + nft.token_id;
+        const uniqID = contract.contract_name + nft.token_id;
   
         const queryString = `INSERT INTO nfts_by_owner (uniq_id, owner_account, contract, nft_id) \
-            VALUES ('${uniqID}', '${nft.owner_id}', '${req.query.contract}', '${nft.token_id}') \
+            VALUES ('${uniqID}', '${nft.owner_id}', '${contract.contract_name}', '${nft.token_id}') \
             ON CONFLICT (uniq_id) DO UPDATE \
               SET owner_account = '${nft.owner_id}'`;
         
         await pool.query(queryString)
-          .then(() => console.log(`Inserted or updated ${nft.token_id} on contract ${req.query.contract}`))
+          .then(() => console.log(`Inserted or updated ${nft.token_id} on contract ${contract.contract_name}`))
           .catch((err) => setImmediate(() => {
             console.error("Insert error: ", err);
           }));
