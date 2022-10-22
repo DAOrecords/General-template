@@ -59,7 +59,7 @@ const dark = true;
 
   return (
     <div id="musicPlayer">
-      {list[selectedSong].metadata.title}
+      <p id="musicPlayerSongName">{list[selectedSong].metadata.title}</p>
       <audio 
         style={{ display: "block" }} 
         src={`https://daorecords.io:8443/fetch?cid=${JSON.parse(list[selectedSong].metadata.extra).music_cid}`} 
@@ -71,17 +71,19 @@ const dark = true;
         <button className="musicControlsButton" onClick={playClicked}><PlayIcon /></button>
       }
       {playerRef.current && 
-        <input 
-          className={dark? "musicControlsSlider" :  "musicControlsSlider musicControlsSliderWhite"}
-          type={"range"}
-          min={"0"}
-          max={playerRef.current.duration}
-          value={time}
-          onChange={(e) => {
-            playerRef.current.currentTime = e.target.value;
-            setTime(playerRef.current.currentTime);
-          }}
-        />
+        <div>
+          <input 
+            className={dark? "musicControlsSlider" :  "musicControlsSlider musicControlsSliderWhite"}
+            type={"range"}
+            min={"0"}
+            max={playerRef.current.duration}
+            value={time}
+            onChange={(e) => {
+              playerRef.current.currentTime = e.target.value;
+              setTime(playerRef.current.currentTime);
+            }}
+          />
+        </div>
       }
     </div>
   )

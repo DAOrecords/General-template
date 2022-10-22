@@ -139,17 +139,30 @@ export default function MyNFTs({newAction, openGuestBook, setGuestBook, setShowW
                 <p>My NFTs</p>
                 <img src={Cd2} alt={''}></img>
               </h1>
-              <ul id="mynftsFilterBar" role={"menubar"}>
-                {false && filters.map((filter, index) => (
-                  <li 
-                    key={"filter-" + index}
-                    className="mynftsFilter"
-                    onClick={() => setSelectedFilter(index)}
-                  >
-                    <p>{filter.name}</p>
-                  </li>
-                ))}
-              </ul>
+              <div id="mynftsControls" role={"menu"}>
+                <ul id="mynftsFilterBar" role={"menubar"}>
+                  {false && filters.map((filter, index) => (
+                    <li 
+                      key={"filter-" + index}
+                      className="mynftsFilter"
+                      onClick={() => setSelectedFilter(index)}
+                    >
+                      <p>{filter.name}</p>
+                    </li>
+                  ))}
+                </ul>
+                <ul id="mynftsPagination">
+                  {nftPages && nftPages.map((_page, index) => (
+                    <li 
+                      key={"pageButton-" + index} 
+                      className={selectedPage === index ? "mynftsPageButton mynftsPageButtonSelected" : "mynftsPageButton"}
+                      onClick={() => setSelectedPage(index)}
+                    >
+                      <p>{index+1}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
               <ul id="mynftsList">
                 {nftPages[selectedPage] && nftPages[selectedPage].map((item, i) => (
                   <li key={"nftCard-" + i} className="myNftsCard" style={((i+1) % cardFitCount) ? liMargin : null}>
@@ -162,17 +175,6 @@ export default function MyNFTs({newAction, openGuestBook, setGuestBook, setShowW
                       metadata={item.metadata}
                       playClicked={playClicked}
                     />
-                  </li>
-                ))}
-              </ul>
-              <ul id="mynftsPagination">
-                {nftPages && nftPages.map((_page, index) => (
-                  <li 
-                    key={"pageButton-" + index} 
-                    className={selectedPage === index ? "mynftsPageButton mynftsPageButtonSelected" : "mynftsPageButton"}
-                    onClick={() => setSelectedPage(index)}
-                  >
-                    {index+1}
                   </li>
                 ))}
               </ul>
