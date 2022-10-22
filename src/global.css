@@ -1498,23 +1498,27 @@ h1 {
   position: absolute;
   display: flex;
   flex-direction: column;
-  width: 450px;
-  height: 100px;
+  justify-content: space-evenly;
+  width: 600px;
+  height: 150px;
   bottom: 8px;
   right: 8px;
   background: yellow;
   color: red;
+  border-radius: 10px;
   text-align: center;
   z-index: 500;
 }
 #musicPlayerSongName {
-  flex-grow: 1;
+  margin: 0;
+  padding: 0;
 }
 .musicControlsButton {
   flex-shrink: 1;
   background: transparent;
   border: none;
   outline: none;
+  margin-bottom: -5px;
   cursor: pointer;
 }
 .musicControlsSlider {
@@ -1534,11 +1538,11 @@ h1 {
   height: 8px;
   width: 20px;
   /*border: 7px solid var(--control-grey);*/
-  border: 12px solid var(--splash-color);
+  border: 12px solid red;
   border-top: none;
   border-bottom: none;
   /*background-color: var(--control-grey);*/
-  background-color: var(--splash-color);
+  background-color: red;
   margin-top: 0px;
   border-radius: 0;
 }
@@ -1553,11 +1557,11 @@ h1 {
   height: 8px;
   width: 20x;
   /*border: 7px solid var(--control-grey);*/
-  border: 12px solid var(--splash-color);
+  border: 12px solid red;
   border-top: none;
   border-bottom: none;
   /*background-color: var(--control-grey);*/
-  background-color: var(--splash-color);
+  background-color: red;
   margin-top: -5px;
   border-radius: 0;
 }
