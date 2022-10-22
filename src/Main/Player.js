@@ -3,7 +3,7 @@ import React from 'react';
 
 export default function Player({list, selectedSong, setSelectedSong, color}) {
   const playerRef = React.useRef();
-  const timeoutId = setTimeout(timeoutFunc, 500);
+  const [timeoutId, setTimeoutId] = React.useState(setTimeout(timeoutFunc, 1000));
   const [time, setTime] = React.useState("0");
   const [playing, setPlaying] = React.useState(false);
 const dark = true;
@@ -21,9 +21,14 @@ const dark = true;
   
   React.useEffect(async () => {
     playerRef.current.volume = 0.50;
-    return () => {
+    if (playing === false) {
       clearTimeout(timeoutId)
-    };
+    } else {
+      setTimeoutId(setTimeout(timeoutFunc, 1000));
+    }
+    /*return () => {
+      setTimeoutId(clearTimeout(timeoutId))
+    };*/
   }, [playing]);
 
   React.useEffect(() => {
@@ -42,6 +47,7 @@ const dark = true;
   }
 
   function prevClicked() {
+    console.log("prevClicked is running.", selectedSong)
     if (selectedSong === 0) {
       setSelectedSong(list.length-1);
     } else {
@@ -50,6 +56,7 @@ const dark = true;
   }
 
   function nextClicked() {
+    console.log("nextClicked is running.", selectedSong)
     if (selectedSong === list.length-1) {
       setSelectedSong(0);
     } else {
@@ -104,13 +111,13 @@ const dark = true;
         ref={playerRef} 
       />
       <div id="musicPlayerButtons">
-        <button className="musicControlsButton" onClick={prevClicked}><PrevIcon /></button>
+        <button className="musicControlsButton" onClick={prevClicked} key={1}><PrevIcon /></button>
         {playing? 
-          <button className="musicControlsButton" onClick={pauseClicked}><PauseIcon /></button>
+          <button className="musicControlsButton" onClick={pauseClicked} key={1}><PauseIcon /></button>
         : 
-          <button className="musicControlsButton" onClick={playClicked}><PlayIcon /></button>
+          <button className="musicControlsButton" onClick={playClicked} key={1}><PlayIcon /></button>
         }
-        <button className="musicControlsButton" onClick={nextClicked}><NextIcon /></button>
+        <button className="musicControlsButton" onClick={nextClicked} key={1}><NextIcon /></button>
       </div>
       {playerRef.current && 
         <div>
@@ -120,6 +127,7 @@ const dark = true;
             min={"0"}
             max={playerRef.current.duration}
             value={time}
+            key={time}
             onChange={(e) => {
               playerRef.current.currentTime = e.target.value;
               setTime(playerRef.current.currentTime);
