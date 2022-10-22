@@ -3,6 +3,7 @@ import DaoLogo from '../../assets/DaoLogoSplash3.svg';
 import RealityChain from '../../assets/RealityChainSplash2.svg';
 import CryptoVoxels from '../../assets/CryptoVoxelsSplash2.svg';
 import logo from '../../assets/beatLogo.png';
+import NearHub from '../../assets/near_hub_logo.svg';
 
 
 /** Footer for Week12 */
@@ -17,13 +18,8 @@ export default function Footer() {
             </a>
           </li>
           <li>
-            <a href={'https://near.realitychain.io/2dcity/index.html?pos=x-192y-32'} >
-              <img src={RealityChain} alt={'RealityChain'} />
-            </a>
-          </li>
-          <li>
-            <a href={'http://bit.ly/SoundSplashSpace'}>
-              <img src={CryptoVoxels} alt={'CryptoVoxels'} />
+            <a href={'https://nearhub.club/G99xQHP/beatdao-mansion'} >
+              <img src={NearHub} alt={'NearHub'} />
             </a>
           </li>
         </ul>
