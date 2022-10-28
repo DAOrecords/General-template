@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ToastContainer, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from './Footer';
-import TopMenu from './TopMenu';
+import TopMenu from './nwq/TopMenu';
 import { getListForAccount, getNftDetailsForList } from '../utils';
 import NftCard from './NftCard';
 import artistLists from '../artistLists.json';
@@ -44,6 +44,15 @@ export default function MyNFTs({newAction, openGuestBook, setGuestBook, setShowW
   let navigate = useNavigate();
 
   useEffect(async () => {
+    // Update list of NFTs for owner on the backend, the list should be up-to-date after BUY action, but we are doing this anyway.
+    await fetch(`https://daorecords.io:8443/update/all_nfts_for_owner?owner=${window.accountId}`)
+      .then((res) => res.json())
+      .then((response) => {
+        if (response.success) console.log("List of NFTs for user updated (server side)");
+        else console.error("Error while updating entries for user: ", response.error);
+      })
+      .catch((err) => console.error(`Error while updating the list of NFTs for owner ${window.accountId}!`, err));
+
     // Get the list of NFTs the user owns, from the server
     const nftList = await getListForAccount();
     console.log("nftList", nftList);
@@ -130,17 +139,30 @@ export default function MyNFTs({newAction, openGuestBook, setGuestBook, setShowW
                 <p>My NFTs</p>
                 <img src={Cd2} alt={''}></img>
               </h1>
-              <ul id="mynftsFilterBar" role={"menubar"}>
-                {false && filters.map((filter, index) => (
-                  <li 
-                    key={"filter-" + index}
-                    className="mynftsFilter"
-                    onClick={() => setSelectedFilter(index)}
-                  >
-                    <p>{filter.name}</p>
-                  </li>
-                ))}
-              </ul>
+              <div id="mynftsControls" role={"menu"}>
+                <ul id="mynftsFilterBar" role={"menubar"}>
+                  {false && filters.map((filter, index) => (
+                    <li 
+                      key={"filter-" + index}
+                      className="mynftsFilter"
+                      onClick={() => setSelectedFilter(index)}
+                    >
+                      <p>{filter.name}</p>
+                    </li>
+                  ))}
+                </ul>
+                <ul id="mynftsPagination">
+                  {nftPages && nftPages.map((_page, index) => (
+                    <li 
+                      key={"pageButton-" + index} 
+                      className={selectedPage === index ? "mynftsPageButton mynftsPageButtonSelected" : "mynftsPageButton"}
+                      onClick={() => setSelectedPage(index)}
+                    >
+                      <p>{index+1}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
               <ul id="mynftsList">
                 {nftPages[selectedPage] && nftPages[selectedPage].map((item, i) => (
                   <li key={"nftCard-" + i} className="myNftsCard" style={((i+1) % cardFitCount) ? liMargin : null}>
@@ -153,17 +175,6 @@ export default function MyNFTs({newAction, openGuestBook, setGuestBook, setShowW
                       metadata={item.metadata}
                       playClicked={playClicked}
                     />
-                  </li>
-                ))}
-              </ul>
-              <ul id="mynftsPagination">
-                {nftPages && nftPages.map((_page, index) => (
-                  <li 
-                    key={"pageButton-" + index} 
-                    className={selectedPage === index ? "mynftsPageButton mynftsPageButtonSelected" : "mynftsPageButton"}
-                    onClick={() => setSelectedPage(index)}
-                  >
-                    {index+1}
                   </li>
                 ))}
               </ul>

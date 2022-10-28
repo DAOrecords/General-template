@@ -92,7 +92,6 @@ nav {
   align-items: center;
   height: var(--nav-size);
   width: 100%;
-  background-color: var(--nav-bg);
 }
 #mainNav {
   background: transparent;
@@ -204,14 +203,14 @@ nav {
 .menuButton {
   margin-right: 32px;
   margin-top: 7px;
-  font-family: 'neue-haas-grotesk-display';
+  font-family: GeneralSans;
   font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 18px;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 160%;
   letter-spacing: 0.05em;
   text-decoration: none;
-  color: #F2F2F2;
+  color: #F5F6F7;
 }
 .troacoMenuButton {
   margin-right: 32px;
@@ -293,7 +292,7 @@ nav {
   background: #FFFFFF;
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
   border-radius: 1px;
-  right: 478px;
+  right: 400px;
   top: var(--nav-size);
   z-index: 5;
 }
@@ -338,7 +337,7 @@ footer ul {
   align-items: center;
   margin: 0;
   padding: 0;
-  margin-left: 120px;
+  margin-left: 64px;
   margin-right: 120px;
   list-style: none;
 }
@@ -346,13 +345,20 @@ footer ul li {
   margin-right: 49px;
 }
 footer ul li a {
-  font-family: neue-haas-grotesk-display;
+  font-family: GeneralSans;
   font-size: 12px;
   line-height: 14px;
   text-decoration: none;
   letter-spacing: 0.05em;
   color: #121212;
   font-weight: 400;
+}
+
+#beatLogo {
+  position: absolute;
+  z-index: 2;
+  bottom: 0;
+  right: 64px;
 }
 
 main {
@@ -386,6 +392,9 @@ main {
     height: 100vh;
     width: 100vw;
   }
+  #beatLogo {
+    display: none;
+  }
 }
 #adminLogo {
   display: block;
@@ -407,14 +416,15 @@ main {
   text-align: center;
 }
 .mainWalletBadge {
-  border: none;
-  border-radius: 50px;
-  background: #f2f2f2;
-  text-transform: uppercase;
-  font-family: neue-haas-grotesk-display;
+  border: 1px solid #A673EF;
+  background: transparent;
+  border-radius: 3px;
+  filter: drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.08));
+  font-family: GeneralSans;
   font-size: 16px;
-  width: 179px;
-  height: 39px;
+  color: #8247E5;
+  width: 204px;
+  height: 52px;
 }
 .Week2Wallet {
   background: #333333 !important;
@@ -443,14 +453,17 @@ main {
 }
 .mainWalletContainer {
   position: absolute;
-  font-family: neue-haas-grotesk-display;
-  background: white;
-  border-radius: 2px;
+  font-family: GeneralSans;
+  border: 1px solid #A673EF;
+  color: #8247E5;
+  background: transparent;
+  border-radius: 3px;
+  filter: drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.08));
   font-size: 12px;
-  top: 58px;
+  top: 60px;
   padding: 16px;
-  right: 100px;
-  width: 183px;
+  right: 63px;
+  width: 171px;
   height: 99px;
   text-transform: uppercase;
   z-index: 9998;
@@ -592,19 +605,15 @@ main {
   padding-right: 64px;
 }
 .walletBadge {
-  width: 219px;
-  height: 42px;
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.08);
-  border: none;
+  border: 1px solid #A673EF;
+  background: transparent;
   border-radius: 3px;
-  background: #FFAD0D;
+  filter: drop-shadow(0px 1px 1px rgba(0, 0, 0, 0.08));
   font-family: GeneralSans;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 160%;
-  color: #000000;
-  cursor: pointer;
+  font-size: 16px;
+  color: #8247E5;
+  width: 204px;
+  height: 52px;
 }
 .mainMenuButton {
   margin-right: 32px;
@@ -619,6 +628,12 @@ main {
 .mainMenuButton:hover {
   text-decoration: underline;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 1200px) {
+  .mainControlsLast {
+    padding-right: 8px;
+  }
 }
 
 #mynftsFooter {
@@ -698,8 +713,8 @@ main {
 }
 #mynftsList {
   display: flex;
+  flex-wrap: nowrap;
   flex-direction: row;
-  flex-wrap: wrap;
   list-style-type: none;
   padding: 0;
   margin-top: auto;
@@ -711,6 +726,10 @@ main {
 .myNftsCard {
   margin-bottom: 32px;
 }
+#mynftsControls {
+  display: flex;
+  justify-content: space-between;
+}
 #mynftsPagination {
   display: flex;
   align-items: center;
@@ -718,16 +737,20 @@ main {
   list-style-type: none;
 }
 .mynftsPageButton {
-  background-color: #F2F2F2;
-  border: 1px solid #333333;
+  background-color: #222222;
+  border-radius: 10px;
+  margin-left: 8px;
   font-family: GeneralSans;
-  width: 25px;
-  height: 25px;
-  text-align: center;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #F2F2F2;
 }
 .mynftsPageButtonSelected {
-  color: purple;
-  background-color: #FFFFFF;
+  color: yellow;
+  font-style: bold;
 }
 
 #counter {
@@ -998,7 +1021,7 @@ input[type=number] {
 }
 
 h1 {
-  font-family: neue-haas-grotesk-display;
+  font-family: GeneralSans;
   font-size: 40px;
   /*margin-top: calc(var(--nav-size) + 72px);*/
   margin-top: 60px;
@@ -1035,6 +1058,7 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  width: 100%;
 }
 .nftCardInfoArtistList {
   font-size: 10px;
@@ -1122,70 +1146,6 @@ h1 {
   }
 }
 
-
-.musicControlsButton {
-  flex-shrink: 1;
-  background: transparent;
-  border: none;
-  outline: none;
-  cursor: pointer;
-}
-.musicControlsSlider {
-  flex-grow: 1;
-  width: 80%;
-  height: 2px;
-  margin-left: 20px;
-  margin-right: 20px;
-  /*background-color: var(--control-grey);*/
-  background-color: var(--splash-color);
-}
-.musicControlsSliderWhite {
-  background-color: #F2F2F2;
-}
-.musicControlsSlider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  height: 8px;
-  width: 20px;
-  /*border: 7px solid var(--control-grey);*/
-  border: 12px solid var(--splash-color);
-  border-top: none;
-  border-bottom: none;
-  /*background-color: var(--control-grey);*/
-  background-color: var(--splash-color);
-  margin-top: 0px;
-  border-radius: 0;
-}
-.musicControlsSliderWhite::-webkit-slider-thumb {
-  border: 12px solid white;
-  border-top: none;
-  border-bottom: none;
-  background-color: white;
-}
-.musicControlsSlider::-moz-range-thumb {
-  -webkit-appearance: none;
-  height: 8px;
-  width: 20x;
-  /*border: 7px solid var(--control-grey);*/
-  border: 12px solid var(--splash-color);
-  border-top: none;
-  border-bottom: none;
-  /*background-color: var(--control-grey);*/
-  background-color: var(--splash-color);
-  margin-top: -5px;
-  border-radius: 0;
-}
-.musicControlsSliderWhite::-moz-range-thumb {
-  border: 12px solid white;
-  border-top: none;
-  border-bottom: none;
-  background-color: white;
-}
-input[type="range"] {
-  -webkit-appearance: none;
-  appearance: none;
-  cursor: pointer;
-  width: 15rem;
-}
 
 .loadingLabel {
   font-family: VCR;
@@ -1292,7 +1252,7 @@ input[type="range"] {
   position: absolute;
   top: var(--nav-size);
   right: var(--spacing-3);
-  width: 480px;
+  width: 399px;
   background-color: var(--box-color);
   box-shadow: 0 0 6px rgba(35, 173, 278, 1);
   z-index: 9998;
@@ -1312,7 +1272,7 @@ input[type="range"] {
   align-content: center;
   width: 100%;
   height: 100%;
-  font-family: neue-haas-grotesk-display;
+  font-family: GeneralSans;
   z-index: 50;
 }
 #nftDetailsModalPicture {
@@ -1536,15 +1496,88 @@ input[type="range"] {
 
 #musicPlayer {
   position: absolute;
-  width: 280px;
-  height: 100px;
-  bottom: 50px;
-  right: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 600px;
+  height: 150px;
+  bottom: 8px;
+  right: 8px;
   background: yellow;
   color: red;
+  border-radius: 10px;
   text-align: center;
   z-index: 500;
 }
+#musicPlayerSongName {
+  margin: 0;
+  padding: 0;
+}
+.musicControlsButton {
+  flex-shrink: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  margin-bottom: -5px;
+  cursor: pointer;
+}
+.musicControlsSlider {
+  flex-grow: 1;
+  width: 80%;
+  height: 2px;
+  margin-left: 20px;
+  margin-right: 20px;
+  /*background-color: var(--control-grey);*/
+  background-color: var(--splash-color);
+}
+.musicControlsSliderWhite {
+  background-color: #F2F2F2;
+}
+.musicControlsSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 8px;
+  width: 20px;
+  /*border: 7px solid var(--control-grey);*/
+  border: 12px solid red;
+  border-top: none;
+  border-bottom: none;
+  /*background-color: var(--control-grey);*/
+  background-color: red;
+  margin-top: 0px;
+  border-radius: 0;
+}
+.musicControlsSliderWhite::-webkit-slider-thumb {
+  border: 12px solid white;
+  border-top: none;
+  border-bottom: none;
+  background-color: white;
+}
+.musicControlsSlider::-moz-range-thumb {
+  -webkit-appearance: none;
+  height: 8px;
+  width: 20x;
+  /*border: 7px solid var(--control-grey);*/
+  border: 12px solid red;
+  border-top: none;
+  border-bottom: none;
+  /*background-color: var(--control-grey);*/
+  background-color: red;
+  margin-top: -5px;
+  border-radius: 0;
+}
+.musicControlsSliderWhite::-moz-range-thumb {
+  border: 12px solid white;
+  border-top: none;
+  border-bottom: none;
+  background-color: white;
+}
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  width: 90%;
+}
+
 
 .buyModal {
   position: absolute;
@@ -2006,7 +2039,7 @@ input[type="range"] {
   background: #121212;
   border: none;
   border-radius: 50px;
-  font-family: 'neue-haas-grotesk-display';
+  font-family: GeneralSans;
   text-transform: uppercase;
   font-weight: 450;
   font-size: 16px;
@@ -2063,10 +2096,8 @@ input[type="range"] {
   align-items: center;
   justify-content: flex-end;
   position: absolute;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  background: rgba(255, 255, 255, 0.05);
   padding-right: 120px;
+  margin-top: 8px;
   top: 0;
   left: 0;
   z-index: 3;
@@ -2141,7 +2172,7 @@ input[type="range"] {
 }
 .hamburgerElement {
   padding: 16px;
-  font-family: 'neue-haas-grotesk-display';
+  font-family: GeneralSans;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -2176,7 +2207,7 @@ input[type="range"] {
 
 .splashLogo {
   flex-grow: 1;
-  padding-left: 120px;
+  padding-left: 64px;
 }
 .daoLogo {
   flex-grow: 1;
@@ -2347,14 +2378,16 @@ input[type="range"] {
 #splashInfoFlex {
   /*grid-area: info;*/
   display: flex;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  width: 438px;
+  color: #F2F2F2;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 10px;
   flex-direction: column;
   margin-top: var(--spacing-5);
   margin-left: 60px;
-  padding: 10px 10px 10px 10px;
-  border-radius: 25px;
+  padding: 24px;
   position: relative;
   z-index: 2;
 }
@@ -2362,9 +2395,7 @@ input[type="range"] {
   display: none;
 }
 .Week2splashInfoFlex {
-  width: 368px;
   border-radius: 0 !important;
-  padding: 28px 41px 50px 41px !important;
 }
 .Week2Desc {
   margin-top: 16px;
@@ -2375,6 +2406,14 @@ input[type="range"] {
 }
 #splashDesc {
   max-height: 27vh;
+  font-family: GeneralSans;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.02em;
+  color: #F2F2F2;
+  text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.25);
   overflow-y: scroll;
   overflow-x: visible;
   -ms-overflow-style: none;  /* IE and Edge */
@@ -2484,8 +2523,8 @@ input[type="range"] {
 }
 #splashTitleWeek10 img {
   position: relative;
-  width: 26vw;
-  margin-top: -3vw;
+  max-width: 26vw;
+  margin-top: 0vw;
   z-index: 4;
 }
 #splash5BackgroundVideo {
@@ -2502,6 +2541,17 @@ input[type="range"] {
 .splashInfoElementFirst {
   margin-right: var(--spacing-3);
 }
+.splashInfoElement {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: GeneralSans;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 27px;
+  letter-spacing: 0.01em;
+  color: #F2F2F2;
+}
 .splashInfoElementSecond {
   flex-grow: 1;
 }
@@ -2516,6 +2566,11 @@ input[type="range"] {
 }
 .splashSmallInfoBoxNearPrice {
   margin-bottom: 0;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: 0.01em;
 }
 .splashSmallInfoBoxDollarPrice {
   margin-top: 0;
@@ -2546,6 +2601,13 @@ input[type="range"] {
 }
 .splashArtistListElementFirstWeek4 {
   margin-bottom: 6px !important;
+  font-family: GeneralSans;
+  color: #F2F2F2;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
 }
 .splashArtistListElementIcon {
   margin-left: var(--spacing-1);
@@ -2766,23 +2828,28 @@ input[type="range"] {
   cursor: pointer;
 }
 #splashBuy12 {
-  margin-left: calc((386px / 2) + 44px);
+  margin-left: calc(486px - 57px);
   margin-top: var(--spacing-2);
   position: relative;
   z-index: 2;
 }
 #splashBuy12 button {
-  background: #FFD12E;
-  color: #333333;
-  border-radius: 50px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  width: 115px;
+  height: 52px;
+  font-family: GeneralSans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 160%;
+  color: #FFFFFF;
+  background: #8247E5;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.08);
   border: none;
-  width: 96px;
-  height: 39px;
+  border-radius: 3px;
 }
 #splashBuy12 button:hover {
   color: #F2F2F2;
-  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.25);
+  background: #A673EF;
   cursor: pointer;
 }
 
@@ -2883,7 +2950,7 @@ input[type="range"] {
   }
   #splashTitleWeek10 img {
     height: auto;
-    width: 100%;
+    max-width: 80%;
   }
   #splashBuy3 {
     margin-left: 0;
@@ -3100,6 +3167,11 @@ input[type="range"] {
   /*background-image: url('./assets/splash2svg.svg');*/
   background-size: cover;
   background-position: center;
+}
+
+#beatDAObackground {
+  background: url('./assets/background.jpg');
+  background-size: cover;
 }
 
 

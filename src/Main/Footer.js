@@ -2,6 +2,7 @@ import React from 'react';
 import DaoLogo from '../assets/DaoLogo.svg';
 import RealityChain from '../assets/RealityChainLogo.svg';
 import CryptoVoxels from '../assets/CryptoVoxelsLogo.svg';
+import NearHub from '../assets/near_hub_logo.svg';
 
 
 /** Footer for Main */
@@ -15,13 +16,8 @@ export default function Footer() {
           </a>
         </li>
         <li>
-          <a href={'https://near.realitychain.io/2dcity/index.html?pos=x-192y-32s'} >
-            <img src={RealityChain} alt={'RealityChain'} />
-          </a>
-        </li>
-        <li>
-          <a href={'http://bit.ly/SoundSplashSpace'}>
-            <img src={CryptoVoxels} alt={'CryptoVoxels'} />
+          <a href={'https://nearhub.club/G99xQHP/beatdao-mansion'} >
+            <img src={NearHub} alt={'NearHub'} />
           </a>
         </li>
       </ul>
