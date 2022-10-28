@@ -1,14 +1,24 @@
-import React from 'react'
+import React from 'react';
+import PlayerControls from './PlayerControls';
 
-export default function ThePicture({image, imageCID}) {
+
+export default function ThePicture({imageCID, playing, setPlay}) {
+  let userAgentString = navigator.userAgent;
+  let safariAgent = userAgentString.indexOf("Safari") > -1;
+  if (userAgentString.indexOf("Chrome") > -1) safariAgent = false;                             // Some browsers are spoofing user agent by adding a string like
+  if (userAgentString.indexOf("Firefox") > -1) safariAgent = false;                            // Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.61 Safari/537.36
+  console.log("Is Safari? ", safariAgent);
+
   return (
-    <img 
-      id="splashPicture" 
-      alt="Picture loading..."
-      src={`https://daorecords.io:8443/fetch?cid=${imageCID}`}
-    >
-    </img>
+    <div id='pictureContainer'>
+      <img 
+        id="picture" 
+        alt="Picture loading..."
+        src={`https://daorecords.io:8443/fetch?cid=${imageCID}`}
+      >
+      </img>
+      {!safariAgent && <PlayerControls playing={playing} setPlay={setPlay} />}
+    </div>
   )
 }
 
-/*src={image}*/

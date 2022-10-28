@@ -3,8 +3,8 @@ import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Admin from './Admin/Admin';
-import AdminTopMenu from './Admin/TopMenu';
-import AdminFooter from './Admin/Footer';
+import TopMenu from './Admin/TopMenu';
+import Footer from './Admin/Footer';
 import Message from './Activity/Message';
 import Pending from './Activity/Pending';
 import Ok from './Activity/Ok';
@@ -15,7 +15,7 @@ import titleImage1 from './assets/title_beat1.png';
 import titleImage2 from './assets/title_beat2.png';
 import titleImage3 from './assets/title_beat3.png';
 import titleImage4 from './assets/title_beat4.png';
-import SplashLanding from './Main/nwq/SplashLanding';
+import SplashLanding from './Main/SplashLanding';
 import TransferModal from './Main/TransferModal';
 
 
@@ -32,16 +32,6 @@ export default function App() {
     .catch((err) => console.error("Error while fetching projectConfig.json: ", err));
     setConfigObj(fetchObj);
   }, [])
-
-  function initContract() {
-    const args = {
-      owner_id: process.env.CONTRACT_NAME || configObj.contractName,
-      admin: configObj.admin
-    }
-    window.contract.new_default_meta(args)                                                            // This could be 'new' for user provided init, we are using default
-      .then((msg) => console.log("Initialized! ", msg))
-      .catch((err) => console.error(err));
-  }
   
   function newAction(actionObj) {
     //FireToast conditionally
@@ -107,10 +97,10 @@ export default function App() {
           element={
             <>
               <ToastContainer hideProgressBar={true} position="bottom-right" transition={Slide} />
-              <AdminTopMenu setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} 
+              <TopMenu setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} 
                 setShowWallet={setShowWallet} showWallet={showWallet} />
               <Admin newAction={newAction} vault={configObj.contractName} />
-              <AdminFooter />
+              <Footer />
             </>
           }
         />
@@ -174,10 +164,10 @@ export default function App() {
           element={
             <>
               <ToastContainer hideProgressBar={true} position="bottom-right" transition={Slide} />
-              <AdminTopMenu setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} 
+              <TopMenu setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} 
                 setShowWallet={setShowWallet} showWallet={showWallet} />
               <Withdraw />
-              <AdminFooter />
+              <Footer />
             </>
           }
         />

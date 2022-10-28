@@ -1,18 +1,29 @@
-import React from 'react'
+import React from 'react';
+
 
 export default function SongName({title, image}) {
+  const screenWidth = window.innerWidth;
+  const screenHeight = window.innerHeight;
+  const overflow = ((screenHeight < 814) && (screenWidth > 1200)) ? true : false;
 
-  if (image) {
-    return (
-      <div id="splashTitle">
-        <img src={image} alt={title} />
-      </div>
-    )
-  } else {
-    return (
-      <div id="splashTitle" style={{}}>
-        {title}
-      </div>
-    )
+  const style = {
+    fontFamily: "Inter",
+    fontWeight: "normal",
+    lineHeight: "84px",
+    letterSpacing: "0.01em",
+    textTransform: "uppercase"
   }
+
+  const plc = {
+    marginLeft: "0 !important",
+    width: "100%",
+    marginLeft: 0,
+  }
+
+  
+  return (
+    <div id="songTitle">
+      <img src={image} alt={title} />
+    </div>
+  )
 }

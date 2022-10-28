@@ -1,11 +1,9 @@
 import React from 'react';
 import { utils } from 'near-api-js';
-import Buy from './Buy';
 
 
-export default function Box({tokenId, gen, price, fontSettings, newAction}) {
+export default function Box({gen, price, fontSettings}) {
   const priceInNear = utils.format.formatNearAmount(price);
-  const [priceInDollar, setDollar] = React.useState("NaN");
 
   function formatNumber(number, maxDecimal) {
     return Math.round(number * Math.pow(10,maxDecimal)) / Math.pow(10,maxDecimal)
@@ -23,29 +21,21 @@ export default function Box({tokenId, gen, price, fontSettings, newAction}) {
   }, [])
   
   const labelStyle = {
-    fontFamily: fontSettings.secondFamily,
-    fontWeight: "bold",
-    fontSize: "12px",
-    color: fontSettings.color,
-    lineHeight: "14px",
-    letterSpaceing: "0.05em",
+
   };
   const valueStyle = {
-    fontFamily: fontSettings.family,
-    color: fontSettings.color,
-    fontSize: "24px",
-    lineHeight: "29px",
-    letterSpacing: "0.05em",
-    fontWeight: "bold"
+
   }
 
 
   return (
-    <div id="splashSmallInfoBox" className="splashInfoElement">
-      <div><p className="splashInfoElementFirst splashSmallInfoBoxElement" style={labelStyle}>GENERATION</p></div>
-      <div className="splashInfoElementSecond"><p className="splashSmallInfoBoxElement" style={valueStyle}>#{gen}</p></div>
-      <div className="splashSmallInfoBoxNearPrice"><p className="splashSmallInfoBoxElement" style={valueStyle}>{formatNumber(priceInNear,3)} NEAR</p></div>
-      <Buy tokenId={tokenId} price={price} newAction={newAction} fontSettings={fontSettings} />
+    <div id="splashSmallInfoBox" className="splashInfoElement noSpaceTop">
+      <div><p className="splashInfoElementFirst splashInfoElement" style={labelStyle}>Generation</p></div>
+      <div className="splashSmallInfoBoxNearPrice noFlexBasis"><p className="week2SplashSmallInfoBoxElement" style={valueStyle}>#{gen}</p></div>
+      <div className="splashInfoElementBreak"></div>
+      <div><p className="splashInfoElement" style={labelStyle}>Price</p></div>
+      <div className="splashSmallInfoBoxNearPrice noFlexBasis"><p className="week2SplashSmallInfoBoxElement" style={valueStyle}>{formatNumber(priceInNear,3)} NEAR</p></div>
+      <div className="splashInfoElementBreak"></div>
     </div>
   )
 }

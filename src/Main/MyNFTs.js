@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ToastContainer, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from './Footer';
-import TopMenu from './nwq/TopMenu';
+import TopMenu from './TopMenu';
 import { getListForAccount, getNftDetailsForList } from '../utils';
 import NftCard from './NftCard';
 import artistLists from '../artistLists.json';

@@ -1,16 +1,10 @@
 import React from 'react'
 import { buyNFTfromVault } from '../utils';
 
+
 export default function Buy({tokenId, price, newAction, fontSettings}) {
   const style = {
-    //fontFamily: fontSettings.family,
-    fontFamily: "Bebas",
-    color: fontSettings.color,
-    fontSize: fontSettings.buttonSize,
-    fontWeight: "400",
-    lineHeight: "38px",
-    letterSpacing: "0.05em",
-    color: "#001A5E",
+
   }
 
   function buyNFT() {
@@ -22,7 +16,9 @@ export default function Buy({tokenId, price, newAction, fontSettings}) {
     }
 
     const buyPromise = new Promise(async (resolve, reject) => {
-      const buyResult = await buyNFTfromVault(tokenId, price);
+      const contract = "nft.beatdao.near";
+      window.history.pushState({}, document.title, "/" + `?contract=${contract}`);
+      const buyResult = await buyNFTfromVault("nft.beatdao.near", tokenId, price);
       if (buyResult) {
         resolve("Buying the NFT was successul (message from promise)");
       } else {
@@ -38,10 +34,8 @@ export default function Buy({tokenId, price, newAction, fontSettings}) {
   }
 
   return (
-    <div id="splashBuy"  className="splashSmallInfoBoxElement">
-      <button  onClick={buyNFT} style={style}>
-          BUY
-      </button>
+    <div id="buy">
+      <button  onClick={buyNFT} style={style}>Buy Now</button>
     </div>
   )
 }

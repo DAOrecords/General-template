@@ -1,18 +1,13 @@
-import React from 'react'
+import React from 'react';
+
 
 export default function Desc({desc, fontSettings}) {
   const style = {
-    fontFamily: fontSettings.secondFamily,
-    fontSize: fontSettings.normalSize,
-    textTransform: "uppercase",
-    fontWeight: "400",
-    lineHeight: "15px",
-    letterSpacing: "0.05em",
-    color: fontSettings.color,
+    
   }
 
   return (
-    <div id="splashDesc" className="splashInfoElement" style={style}>
+    <div id="splashDesc" className="splashInfoElement Week12Desc" style={style}>
       {desc}
     </div>
   )

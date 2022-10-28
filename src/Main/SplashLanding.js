@@ -1,30 +1,41 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getBuyableTokens, verify_sha256 } from '../utils';
 import 'regenerator-runtime/runtime';
-import Equalizer from './Equalizer';
+import LineVisualizer from './Equalizer';
 import SplashLandingGrid from './SplashLandingGrid';
-import FooterSplash1 from './FooterSplash1';
-import TopMenuSplash1 from './TopMenuSplash1';
-import Splash1ObjectContainer from './Splash1ObjectContainer';
-import svgBackground from '../assets/splash1svg.svg';
+import Footer from './Footer';
+import TopMenu from './TopMenu';
+import { useNavigate } from 'react-router-dom';
 
 
-export default function SplashLanding({index, newAction, openGuestBook, setGuestBook, setShowWallet, showWallet}) {
+export default function SplashLanding({index, newAction, openGuestBook, setGuestBook, setShowWallet, showWallet, titleImage}) {
   const screenWidth = window.innerWidth;
-  const [nftList, setNftList] = React.useState([]);
-  const [image, setImage] = useState(null);
-  
+  const [nftList, setNftList] = React.useState([]);  
+  const [play, setPlay] = React.useState(false);
+  let navigate = useNavigate();
 
   React.useEffect(async () => {    
-    const urlParams = new URLSearchParams(window.location.search);
-    
-    if (urlParams.has('errorCode')) {
+    const urlParams = window.location.search;
+    const urlObj = new URLSearchParams(document.location.search);
+    window.history.pushState({}, document.title, "/" + "");
+    if (urlParams.includes('errorCode')) {
       newAction({
-        errorMsg: "There was an error while processing the transaction!", errorMsgDesc: urlParams.get('errorCode'),
+        errorMsg: "There was an error while processing the transaction!", errorMsgDesc: urlObj.get('errorCode'),
       }); 
-    } else if (urlParams.has('transactionHashes')) {
+    } else if (urlParams.includes('transactionHashes')) {
+      
+      console.log("urlObj.get('contract'): ", urlObj.get('contract'))
+      await fetch(`https://daorecords.io:8443/update/nfts_for_owner?owner=${window.accountId}&contract=${urlObj.get('contract')}`)
+        .then((res) => res.json())
+        .then((response) => {
+          if (response.success) console.log("List of NFTs for user updated (server side)");
+          else console.error("Error while updating entries for user: ", response.error);
+        })
+        .catch((err) => console.error(`Error while updating the list of NFTs for owner ${window.accountId}!`, err));
+
+      //navigate('/my-nfts');
       newAction({
         successMsg: "Success!", successMsgDesc: "You bought a new NFT!",
       });
@@ -37,57 +48,33 @@ export default function SplashLanding({index, newAction, openGuestBook, setGuest
       return firstNum - secondNum;
     })
   
-    //loadImage(orderedBuyable[index].metadata);
     setNftList(orderedBuyable);
   }, [])
 
-
-  function loadImage(metadata) {
-    let xhr = new XMLHttpRequest();
-    xhr.open("GET", "https://ipfs.io/ipfs/" + metadata.media);
-    xhr.responseType = "blob";
-    xhr.onload = function() {
-      let blob = xhr.response;
-      const reader = new FileReader();
-      const verifier = new FileReader();
-      reader.readAsDataURL(blob);
-      
-      reader.onload = async function(e) {
-        const hash_correct = await verify_sha256(blob, metadata.media_hash);
-        if (hash_correct) setImage(e.target.result);
-        else newAction({
-          errorMsg: "There was an error while loading the image!", errorMsgDesc: "The image hash is incorrect.",
-        }); 
-      }
-    }
-    xhr.send();
-  }
-
   if (nftList.length === 0) return <p>Loading...</p>
+
 
   return (
     <>
       {openGuestBook && ( <GuestBook openModal={openGuestBook} newAction={newAction} setOpenModal={setGuestBook} /> )}
       <ToastContainer position="bottom-right" autoClose={5000} />
-      <div id='colorContainer'>
-        <div id='svgContainer' style={{ backgroundImage: `url(${svgBackground})` }}>
-          <TopMenuSplash1 setShowWallet={setShowWallet} showWallet={showWallet} />
+      <div id='beatDAObackground'>
+        <TopMenu setShowWallet={setShowWallet} showWallet={showWallet} />
 
-          <main>
-            <Equalizer musicCID={JSON.parse(nftList[index].metadata.extra).music_cid} 
-              nftStorageLink={"https://bafybeid2ojnkez22otr3aeajs33vnsl7do6vwhsreufzn53zwirjn4lrb4.ipfs.nftstorage.link/"} />
-            <Splash1ObjectContainer />
-            <SplashLandingGrid 
-              tokenId={nftList[index].token_id}
-              metadata={nftList[index].metadata}
-              image={image}
-              newAction={newAction}
-            />
-          </main>
+        <main>
+          <LineVisualizer musicCID={JSON.parse(nftList[index].metadata.extra).music_cid} play={play} />
 
-          {(screenWidth > 1200)&& <FooterSplash1 />}
+          <SplashLandingGrid
+            tokenId={nftList[index].token_id}
+            metadata={nftList[index].metadata}
+            newAction={newAction}
+            playing={play}
+            setPlay={setPlay}
+            titleImage={titleImage}
+          />
+        </main>
 
-        </div>
+        {(screenWidth > 1200)&& <Footer />}
       </div>
     </>
   )

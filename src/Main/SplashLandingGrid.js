@@ -5,14 +5,14 @@ import InfoBox from './InfoBox';
 import SongName from './SongName';
 
 
-export default function SplashLandingGrid({tokenId, metadata, newAction, playing, setPlay}) {
+export default function SplashLandingGrid({tokenId, metadata, newAction, playing, setPlay, titleImage}) {
   const screenWidth = window.innerWidth;
   const screenHeight = window.innerHeight;
   const overflow = ((screenHeight < 718) && (screenWidth > 1200)) ? ({ overflowY: "scroll" }) : null;
 
   return (
     <div id="splashLandingGrid5" style={overflow}>
-      <SongName title={""}  />
+      <SongName title={""} image={titleImage} />
       <ThePicture imageCID={metadata.media} playing={playing} setPlay={setPlay} />
       <InfoBox
         tokenId={tokenId}
