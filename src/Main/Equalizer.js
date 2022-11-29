@@ -5,6 +5,7 @@ function LineVisualizer ({musicCID, play, audioRef}) {
   const canvasRef = useRef(null);
   const [canvasContext, setCanvasContext] = useState(null);
   const [audioContext, setAudioContext] = useState(null);
+  const heightMultiplier = 0.150;
   const alpha = "1.0";
 
 
@@ -67,7 +68,7 @@ function LineVisualizer ({musicCID, play, audioRef}) {
 
         // Left side
         for (let i = 0; i < bufferLength; i++) {
-          const barHeight = dataArray[i] * 0.9;                // Never hit the top of the canvas
+          const barHeight = dataArray[i] * heightMultiplier;   // Never hit the top of the canvas
           
           const red = i * barHeight/20;                        // We calculate colors based on the music
           const green = i * 4;                                 // and space-from-left
@@ -81,7 +82,7 @@ function LineVisualizer ({musicCID, play, audioRef}) {
         }
         // Right side
         for (let i = 0; i < bufferLength; i++) {
-          const barHeight = dataArray[i] * 0.9;                // Never hit the top of the canvas
+          const barHeight = dataArray[i] * heightMultiplier;   // Never hit the top of the canvas
           
           const red = i * barHeight/20;                        // We calculate colors based on the music
           const green = i * 4;                                 // and space-from-left
@@ -107,7 +108,7 @@ function LineVisualizer ({musicCID, play, audioRef}) {
 
   return (
     <>
-      <canvas id="lineVisualizer" ref={canvasRef} width={window.innerWidth} height={window.innerHeight} />
+      <canvas id="lineVisualizer" ref={canvasRef} width={window.innerWidth} />
     </>
   );
 }

@@ -2270,9 +2270,11 @@ input[type="range"] {
 /** Line Eq*/
 
 #lineVisualizer {
-  /*position: absolute;*/
   z-index: 1;
-  /*top: 20vh;*/
+  height: calc(100vh - 60vh  );
+  width: 100vw;
+  margin-top: -100px;
+  pointer-events: none; 
 }
 
 
