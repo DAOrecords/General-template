@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getBuyableTokens, verify_sha256 } from '../utils';
@@ -14,6 +14,7 @@ export default function SplashLanding({index, newAction, openGuestBook, setGuest
   const screenWidth = window.innerWidth;
   const [nftList, setNftList] = React.useState([]);  
   const [play, setPlay] = React.useState(false);
+  const audioRef = useRef(null);
   let navigate = useNavigate();
 
   React.useEffect(async () => {    
@@ -62,7 +63,7 @@ export default function SplashLanding({index, newAction, openGuestBook, setGuest
         <TopMenu setShowWallet={setShowWallet} showWallet={showWallet} />
 
         <main>
-          <LineVisualizer musicCID={JSON.parse(nftList[index].metadata.extra).music_cid} play={play} />
+          <audio ref={audioRef} src={`https://daorecords.io:8443/fetch?cid=${JSON.parse(nftList[index].metadata.extra).music_cid}`} />
 
           <SplashLandingGrid
             tokenId={nftList[index].token_id}
@@ -71,7 +72,9 @@ export default function SplashLanding({index, newAction, openGuestBook, setGuest
             playing={play}
             setPlay={setPlay}
             titleImage={titleImage}
+            audioRef={audioRef}
           />
+          <LineVisualizer play={play} audioRef={audioRef} />
         </main>
 
         {(screenWidth > 1200)&& <Footer />}

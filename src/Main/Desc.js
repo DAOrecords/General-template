@@ -1,13 +1,9 @@
 import React from 'react';
 
 
-export default function Desc({desc, fontSettings}) {
-  const style = {
-    
-  }
-
+export default function Desc({desc}) {
   return (
-    <div id="splashDesc" className="splashInfoElement Week12Desc" style={style}>
+    <div id="description">
       {desc}
     </div>
   )

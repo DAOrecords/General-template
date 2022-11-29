@@ -1,9 +1,9 @@
 import React from 'react';
 import { login, logout, getBalance } from '../utils';
-import nearLogo from '../assets/near.svg';
+import nearLogo from '../assets/near_black.svg';
 
 
-export default function Wallet({setShowWallet, showWallet, setMenuOpen, setSplashMenuOpen}) {
+export default function Wallet({setShowWallet, showWallet, setMenuOpen}) {
   const [balance, setBalance] = React.useState("NaN");
   const [dollar, setDollar] = React.useState("NaN");
 
@@ -31,7 +31,7 @@ export default function Wallet({setShowWallet, showWallet, setMenuOpen, setSplas
 
   function badgeClicked() {
     setMenuOpen(false);
-    setSplashMenuOpen(false);
+    //setSplashMenuOpen(false);
     setShowWallet(!showWallet);
   }
 
@@ -60,17 +60,15 @@ export default function Wallet({setShowWallet, showWallet, setMenuOpen, setSplas
           <div id="popupWrapper" onClick={() => setShowWallet(false)}>
             <div id="wallet" className="mainWalletContainer" onClick={(e) => e.stopPropagation()}>
               <div id="mainWalletBalanceFlex">
-                <p>BALANCE</p>
+                <p>Balance</p>
                 
                 <p className="walletFlexPlaceholder"></p>
-                <p>{formatNumber(balance, 3)}</p>
+                <p>{formatNumber(balance, 1)}</p>
+                <img src={nearLogo} alt={'N'} className="mainWalletBalanceFlexNear"></img>
               </div>            
-              <div id="mainWalletDollarFlex">
-                <p className="walletFlexPlaceholder"></p>
-                <p>~ ${formatNumber(dollar, 2)}</p>
-              </div>
+              
               <div id="mainWalletButtonContainer">
-                <button onClick={disconnectClicked} id="mainDisconnect">DISCONNECT</button>
+                <button onClick={disconnectClicked} id="mainDisconnect">Disconnect</button>
               </div>
             </div>
 

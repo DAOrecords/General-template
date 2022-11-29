@@ -51,7 +51,7 @@ export default function AudioPlayer({music, cid, color, dark}) {
       {music ? (
           <audio style={{ display: "block" }} src={music} ref={playerRef} />
         ) : (
-          <audio style={{ display: "block" }} src={"https://daorecords.io:8443/fetch?cid=" + cid} ref={playerRef} />
+          <audio style={{ display: "block" }} src={`https://daorecords.io:8443/fetch?cid=` + cid} ref={playerRef} />
       )}
       {playing? 
         <button className="musicControlsButton" onClick={pauseClicked}><PauseIcon /></button>

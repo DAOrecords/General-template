@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import AudioPlayerNftStorage from '../Common/AudioPlayerNftStorage';
 import Box from './Box';
 import Desc from './Desc';
 import ArtistList from './ArtistList';
-import Buy from './Buy';
+import Title from './Title';
 
 
 export default function InfoBox({tokenId, metadata, newAction}) {
@@ -22,14 +21,6 @@ export default function InfoBox({tokenId, metadata, newAction}) {
   if (userAgentString.indexOf("Firefox") > -1) safariAgent = false;                            // Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.61 Safari/537.36
   console.log("Is Safari? ", safariAgent);
 
-  const fontSettings = {
-    family: 'Inter',
-    secondFamily: 'Inter',
-    size: '14px',
-    color: "#333333",
-    buttonSize: '16px',
-    normalSize: '12px'
-  }
 
   useEffect(async () => {
     const contract = window.contract.contractId;
@@ -40,26 +31,18 @@ export default function InfoBox({tokenId, metadata, newAction}) {
       .catch((err) => console.error("Error while fetching artist list ", err));
   }, [rootID]);
 
-  const fetchLink = "https://daorecords.io:8443/fetch?cid=" + extra.music_cid;                 // Fetch url for our server
+  const fetchLink = `https://daorecords.io:8443/fetch?cid=` + extra.music_cid;                 // Fetch url for our server
 
 
-  return (
-    <div id="splash5RightContainer">
-      <div id="splashInfoFlex" >
-        <div id="Week2splashArtistDescBox">
-          <ArtistList fontSettings={fontSettings} list={artistList} />
-          <Desc desc={metadata.description} fontSettings={fontSettings} />
-        </div>
-        {safariAgent &&  <div className="previewBoxItem" style={{ marginTop: "32px" }}>
-          <AudioPlayerNftStorage 
-            nftStorageLink={fetchLink} 
-            color={"#F2F2F2"}
-            dark={false}
-        /></div>}
-        <Box gen={extra.generation} price={extra.original_price} fontSettings={fontSettings} />
-      </div>
-      <Buy tokenId={tokenId} price={extra.original_price} newAction={newAction} fontSettings={fontSettings} />
-    </div>
+  return (  
+    <section id="detailsBox">
+      <Title title={metadata.title} />
+      <div className="detailsBoxPlaceholder"></div>
+      <ArtistList list={artistList} />
+      <Desc desc={metadata.description} />
+      <div className="detailsBoxPlaceholder"></div>
+      <Box gen={extra.generation} price={extra.original_price} />
+    </section>
   )
 }
 

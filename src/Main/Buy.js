@@ -2,7 +2,7 @@ import React from 'react'
 import { buyNFTfromVault } from '../utils';
 
 
-export default function Buy({tokenId, price, newAction, fontSettings}) {
+export default function Buy({tokenId, price, newAction}) {
   const style = {
 
   }

@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 
-function LineVisualizer ({musicCID, play}) {
+function LineVisualizer ({musicCID, play, audioRef}) {
   const canvasRef = useRef(null);
-  const audioRef = useRef(null);
   const [canvasContext, setCanvasContext] = useState(null);
   const [audioContext, setAudioContext] = useState(null);
   const alpha = "1.0";
@@ -109,7 +108,6 @@ function LineVisualizer ({musicCID, play}) {
   return (
     <>
       <canvas id="lineVisualizer" ref={canvasRef} width={window.innerWidth} height={window.innerHeight} />
-      <audio ref={audioRef} src={`https://daorecords.io:8443/fetch?cid=${musicCID}`} />
     </>
   );
 }

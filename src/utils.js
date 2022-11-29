@@ -225,7 +225,7 @@ export async function getListForAccount() {
     limit: 10000,
   }
 
-  await fetch("https://daorecords.io:8443/get/nft_list_for_owner?user=" + window.accountId)
+  await fetch(`https://daorecords.io:8443/get/nft_list_for_owner?user=` + window.accountId)
     .then((res) => res.json())
     .then((response) => {
       console.log("Response: ", response);
@@ -241,7 +241,7 @@ export async function getNftListWithThumbnails(start, pageSize) {
 
   let result = [];
 
-  await fetch("https://daorecords.io:8443/get/nft_list")
+  await fetch(`https://daorecords.io:8443/get/nft_list`)
     .then((res) => res.json())
     .then((response) => {
       result = response.list;
@@ -254,7 +254,7 @@ export async function getNftListWithThumbnails(start, pageSize) {
 export async function getNumberOfNfts() {
   let result = null;
 
-  await fetch("https://daorecords.io:8443/get/nft_list_length")
+  await fetch(`https://daorecords.io:8443/get/nft_list_length`)
     .then((res) => res.json())
     .then((response) => {
       result = response.nft_count;
