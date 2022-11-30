@@ -7,8 +7,12 @@ export default function  Week2ArtistList({list}) {
       {list.map((artist, index) => (
         <li className="artistListElement" key={"artist-" + index}>
           <p className="artistListElementFirst ">{artist.name}</p>
-          <a className="artistListElementIcon" href={artist.twitter}><Twitter /></a>
-          <a className="artistListElementIcon" href={artist.insta}><Insta /></a>
+          {artist.twitter && <a className="artistListElementIcon" href={artist.twitter}><Twitter /></a>}
+          {artist.insta && <a className="artistListElementIcon" href={artist.insta}><Insta /></a>}
+          {artist.telegram && <a className="artistListElementIcon" href={artist.telegram}><Telegram /></a>}
+          {artist.facebook && <a className="artistListElementIcon" href={artist.facebook}><Facebook /></a>}
+          {artist.youtube && <a className="artistListElementIcon" href={artist.youtube}><YouTube /></a>}
+          {artist.website  && <a className="artistListElementIcon" href={artist.website}><Website /></a>}
         </li>
       ))}
     </ul>

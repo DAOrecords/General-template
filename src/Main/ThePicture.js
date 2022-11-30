@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-export default function ThePicture({imageCID, playing, setPlay}) {
+export default function ThePicture({imageCID}) {
   return (
     <section id="pictureBox">
       <img 

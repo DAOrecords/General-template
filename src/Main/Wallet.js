@@ -10,14 +10,14 @@ export default function Wallet({setShowWallet, showWallet, setMenuOpen}) {
   React.useEffect(async () => {
     const result = await getBalance();
     setBalance(result);
-    const nearPrice = await fetch("https://api.binance.com/api/v3/ticker/price?symbol=NEARUSDT")
+    /*const nearPrice = await fetch("https://api.binance.com/api/v3/ticker/price?symbol=NEARUSDT")
       .then((res) => res.json())
       .catch((err) => {
         console.error("Error while fetching NEAR price", err);
         return { price: 0 }
       });
     const dResult = nearPrice.price * result;
-    setDollar(dResult);
+    setDollar(dResult);*/
   }, [])
 
   function formatNumber(number, maxDecimal) {

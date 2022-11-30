@@ -3,9 +3,9 @@ import Box from './Box';
 import Desc from './Desc';
 import ArtistList from './ArtistList';
 import Title from './Title';
+    
 
-
-export default function InfoBox({tokenId, metadata, newAction}) {
+export default function InfoBox({tokenId, metadata, albumName, newAction}) {
   const [artistList, setArtistList] = useState([]);
   const lastDash = tokenId.lastIndexOf('-');
   const dashes = tokenId.match(/-/g);
@@ -36,7 +36,7 @@ export default function InfoBox({tokenId, metadata, newAction}) {
 
   return (  
     <section id="detailsBox">
-      <Title title={metadata.title} />
+      <Title title={metadata.title} albumName={albumName} />
       <div className="detailsBoxPlaceholder"></div>
 
       <div id="detailsBoxScrollContainer">

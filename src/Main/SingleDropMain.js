@@ -4,13 +4,17 @@ import 'react-toastify/dist/ReactToastify.css';
 import { getBuyableTokens, verify_sha256 } from '../utils';
 import 'regenerator-runtime/runtime';
 import LineVisualizer from './Equalizer';
-import SplashLandingGrid from './SplashLandingGrid';
+import SingleGrid from './SingleGrid';
 import Footer from './Footer';
 import TopMenu from './TopMenu';
 import { useNavigate } from 'react-router-dom';
 
 
-export default function SplashLanding({index, newAction, openGuestBook, setGuestBook, setShowWallet, showWallet, titleImage}) {
+/** 
+ *  The main entry pont for the SingleDrop
+ *  This is the component that has to be used in App.js
+ */
+export default function SingleDrop({index, newAction, openGuestBook, setGuestBook, setShowWallet, showWallet}) {
   const screenWidth = window.innerWidth;
   const [nftList, setNftList] = React.useState([]);  
   const [play, setPlay] = React.useState(false);
@@ -20,7 +24,7 @@ export default function SplashLanding({index, newAction, openGuestBook, setGuest
   React.useEffect(async () => {    
     const urlParams = window.location.search;
     const urlObj = new URLSearchParams(document.location.search);
-    window.history.pushState({}, document.title, "/" + "");
+    //window.history.pushState({}, document.title, "/" + "");
     if (urlParams.includes('errorCode')) {
       newAction({
         errorMsg: "There was an error while processing the transaction!", errorMsgDesc: urlObj.get('errorCode'),
@@ -65,13 +69,12 @@ export default function SplashLanding({index, newAction, openGuestBook, setGuest
         <main>
           <audio ref={audioRef} src={`https://daorecords.io:8443/fetch?cid=${JSON.parse(nftList[index].metadata.extra).music_cid}`} />
 
-          <SplashLandingGrid
+          <SingleGrid
             tokenId={nftList[index].token_id}
             metadata={nftList[index].metadata}
             newAction={newAction}
             playing={play}
             setPlay={setPlay}
-            titleImage={titleImage}
             audioRef={audioRef}
           />
           <LineVisualizer play={play} audioRef={audioRef} />

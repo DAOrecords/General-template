@@ -11,11 +11,9 @@ import Ok from './Activity/Ok';
 import Err from './Activity/Err';
 import MyNFTs from './Main/MyNFTs';
 import Withdraw from './Admin/Withdraw';
-import titleImage1 from './assets/title_beat1.png';
-import titleImage2 from './assets/title_beat2.png';
-import titleImage3 from './assets/title_beat3.png';
-import titleImage4 from './assets/title_beat4.png';
-import SplashLanding from './Main/SplashLanding';
+import SingleDrop from './Main/SingleDropMain';
+import AlbumDrop from './Main/AlbumDropMain';
+import MixtapeDrop from './Main/MixtapeDropMain';
 import TransferModal from './Main/TransferModal';
 
 
@@ -81,14 +79,15 @@ export default function App() {
     }
   }
 
-  
+  // !! window.history.pushState({}, document.title, "/" + ""); was DEACTIVATED!
+
   return (
     <HashRouter>
       <Routes>
         <Route 
           exact
           path='/'
-          element={<Navigate replace to="/FunkDaMentals" />}
+          element={<Navigate replace to="/mixtape-drop-example" />}
         />
 
         <Route 
@@ -116,44 +115,51 @@ export default function App() {
           element={<TransferModal newAction={newAction} />}
         />
 
-        {/** NFT Landing Pages */}
+    {/** NFT Landing Page Examples */}
+
+        {/** 
+         * A Single NFT Drop
+         * An index has to be provided
+         * It's possible to have multiple NFTs on the contract, in that case, we would use multiple of this component, with different index
+         */}
         <Route 
           exact
-          path='FunkDaMentals'
+          path='single-drop-example'
           element={
-            <SplashLanding 
-              index={0} newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} 
-              titleImage={titleImage1}
+            <SingleDrop 
+              index={0} 
+              newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} 
             />
           }
         />
+
+        {/** 
+         * An Album NFT Drop
+         * Index is not provided, 0 will be selected first. Album name is shown instead of Song name. Very similar to Mixtape
+         * The name of the album should be provided by the @albumName parameter, we could easily write a function to use the NFT contract metadata here, altough that might not be equal by the album name.
+         */}
         <Route 
           exact
-          path='4eVaH'
+          path='album-drop-example'
           element={
-            <SplashLanding 
-              index={1} newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} 
-              titleImage={titleImage2}
+            <AlbumDrop 
+              albumName={"Wonderful Album"}
+              newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} 
             />
           }
         />
+
+        {/** 
+         * A Mixtape NFT Drop
+         * Index is not provided, 0 will be selected first. Song name is shown, just as with SingleDrop. Very similar to Album.
+         * Mixtape name is shown in the SongMenu
+         */}
         <Route 
           exact
-          path='SteppaInnaDAO'
+          path='mixtape-drop-example'
           element={
-            <SplashLanding 
-              index={2} newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} 
-              titleImage={titleImage3}
-            />
-          }
-        />
-        <Route 
-          exact
-          path='MusicforGuzheng'
-          element={
-            <SplashLanding 
-              index={3} newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} 
-              titleImage={titleImage4}
+            <MixtapeDrop
+              newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} 
             />
           }
         />

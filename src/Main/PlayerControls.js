@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import loaderIcon from "../assets/player-loader.gif";
 
 
-export default function PlayerControls({playing, setPlay, dark = true, loading, isAlbum, audioRef}) {
+export default function PlayerControls({playing, setPlay, dark = true, loading, isAlbum, listLength, selectedSong, changeSong, audioRef}) {
   const [timeoutId, setTimeoutId] = useState(setTimeout(timeoutFunc, 1000));
   const [time, setTime] = useState("0");
   
   function timeoutFunc() {
     setTime(audioRef.current.currentTime);
-    /*if (playerRef.current.currentTime === playerRef.current.duration) {
-      if (selectedSong === list.length-1) {
-        setSelectedSong(0);
+    if (isAlbum && audioRef.current.currentTime === audioRef.current.duration) {
+      if (selectedSong === listLength-1) {
+        changeSong(0);
       } else {
-        setSelectedSong(selectedSong+1);
+        changeSong(selectedSong+1);
       }
-    }*/
+    }
   }
 
   useEffect(async () => {
@@ -27,7 +26,7 @@ export default function PlayerControls({playing, setPlay, dark = true, loading, 
     /*return () => {
       setTimeoutId(clearTimeout(timeoutId))
     };*/
-  }, [playing]);
+  }, [playing, selectedSong]);
 
   function stopPlaying() {
     setPlay(false);
@@ -35,6 +34,23 @@ export default function PlayerControls({playing, setPlay, dark = true, loading, 
 
   function startPlaying() {
     setPlay(true);
+  }
+
+  function nextSong() { 
+    console.table({selectedSong, listLength}, )
+    if (selectedSong === listLength-1) {
+      changeSong(0);
+    } else {
+      changeSong(selectedSong+1);
+    }
+  }
+
+  function previousSong() {
+    if (selectedSong === 0) {
+      changeSong(listLength-1);
+    } else {
+      changeSong(selectedSong-1);
+    }
   }
 
   function formatTime(input_seconds) {
@@ -53,6 +69,7 @@ export default function PlayerControls({playing, setPlay, dark = true, loading, 
     <section id='playerBox'>
       {audioRef.current && 
         <input 
+          key={audioRef.current.duration}
           className={dark? "musicControlsSlider" :  "musicControlsSlider musicControlsSliderWhite"}
           type={"range"}
           min={"0"}
@@ -69,10 +86,14 @@ export default function PlayerControls({playing, setPlay, dark = true, loading, 
         {formatTime(time)}
       </p>
 
-      {playing
-        ? <button onClick={stopPlaying}  className='playerButton'><PauseIcon  /></button>
-        : <button onClick={startPlaying} className='playerButton'><PlayIcon /></button>
-      }
+      <div id="playerButtons">
+        <button onClick={previousSong}  className='playerButton'><PrevIcon  /></button>
+        {playing
+          ? <button onClick={stopPlaying}  className='playerButton'><PauseIcon  /></button>
+          : <button onClick={startPlaying} className='playerButton'><PlayIcon /></button>
+        }
+        <button onClick={nextSong}  className='playerButton'><NextIcon  /></button>
+      </div>
     </section>
   )
 }

@@ -279,6 +279,7 @@ footer ul {
   display: flex;
   flex-direction: row;
   align-items: center;
+  width: 100%;
   margin: 0;
   padding: 0;
   margin-left: 93.5px;
@@ -296,6 +297,10 @@ footer ul li a {
   line-height: 160%;
   color: #000000;
   text-decoration: none;
+}
+.footerSocialLi {
+  margin-left: 12px;
+  margin-right: 0;
 }
 
 #beatLogo {
@@ -1809,7 +1814,10 @@ input[type="range"] {
 #songMenuBox {
   grid-area: songs;
   margin-left: 40px;
-  background-color: palegoldenrod;
+  padding: 24px;
+  padding-right: 4px;
+  border-radius: 20px;  
+  background: #000000;
 }
 
 .detailsBoxPlaceholder {
@@ -1892,6 +1900,56 @@ input[type="range"] {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+#songMenuTitle {
+  font-family: GeneralSans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 27px;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  margin: 0;
+}
+#songMenuList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  overflow-y: scroll;
+  padding-right: 20px;
+  scrollbar-width: thin;
+  scrollbar-color: #FEF513 transparent;
+}
+#songMenuList::-webkit-scrollbar {
+  width: 4px; 
+}
+#songMenuList::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+#songMenuList::-webkit-scrollbar-thumb {
+  background: #FEF513;
+  max-height: 50px;
+  height: 50px;
+  border-radius: 10px;
+}
+.songMenuElement {
+  font-family: GeneralSans;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0.01em;
+  color: #FFFFFF;
+  padding: 16px;
+  border-radius: 14px;
+}
+.songMenuElementSelected {
+  background: #FEF513;
+  color: #000000;
+}
+
 
 #smallInfoBox {
   display: flex;
@@ -2229,6 +2287,13 @@ input[type="range"] {
   z-index: 2;
   bottom: 2rem;
   width: 100%;
+}
+
+#playerButtons {
+  display: flex;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
 }
 
 .playerButton {
