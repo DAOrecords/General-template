@@ -18,7 +18,7 @@ export default function PlayerControls({playing, setPlay, dark = true, loading, 
   }
 
   useEffect(async () => {
-    playerRef.current.volume = 0.50;
+    audioRef.current.volume = 0.50;
     if (playing === false) {
       clearTimeout(timeoutId)
     } else {

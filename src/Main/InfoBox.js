@@ -38,8 +38,12 @@ export default function InfoBox({tokenId, metadata, newAction}) {
     <section id="detailsBox">
       <Title title={metadata.title} />
       <div className="detailsBoxPlaceholder"></div>
-      <ArtistList list={artistList} />
-      <Desc desc={metadata.description} />
+
+      <div id="detailsBoxScrollContainer">
+        <ArtistList list={artistList} />
+        <Desc desc={metadata.description} />
+      </div>
+
       <div className="detailsBoxPlaceholder"></div>
       <Box gen={extra.generation} price={extra.original_price} />
     </section>
