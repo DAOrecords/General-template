@@ -87,12 +87,12 @@ export default function PlayerControls({playing, setPlay, dark = true, loading, 
       </p>
 
       <div id="playerButtons">
-        <button onClick={previousSong}  className='playerButton'><PrevIcon  /></button>
+        {isAlbum && <button onClick={previousSong}  className='playerButton'><PrevIcon  /></button>}
         {playing
           ? <button onClick={stopPlaying}  className='playerButton'><PauseIcon  /></button>
           : <button onClick={startPlaying} className='playerButton'><PlayIcon /></button>
         }
-        <button onClick={nextSong}  className='playerButton'><NextIcon  /></button>
+        {isAlbum && <button onClick={nextSong}  className='playerButton'><NextIcon  /></button>}
       </div>
     </section>
   )
