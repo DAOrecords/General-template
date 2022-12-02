@@ -3,6 +3,7 @@ import ThePicture from './ThePicture';
 import InfoBox from './InfoBox';
 import Buy from './Buy';
 import PlayerControls from './PlayerControls';
+import Title from './Title';
 
 
 /** 
@@ -13,9 +14,15 @@ export default function SingleGrid({tokenId, metadata, newAction, playing, setPl
   const screenWidth = window.innerWidth;
   const screenHeight = window.innerHeight;
   const overflow = ((screenHeight < 718) && (screenWidth > 1200)) ? ({ overflowY: "scroll" }) : null;
+  const mobile = (screenWidth < 1200);
 
   return (
     <article id="landingGrid">
+      {mobile && <Title 
+        title={metadata.title} 
+        mobile={mobile}
+      />}
+
       <ThePicture 
         imageCID={metadata.media} 
         playing={playing} 

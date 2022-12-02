@@ -150,6 +150,10 @@ nav {
   .controlsLast {
     margin-right: 16px;
   }
+
+  nav {
+    margin: 0;
+  }
 }
 .controlsButton {
   background: transparent;
@@ -167,6 +171,12 @@ nav {
   line-height: 160%;
   text-decoration: none;
   color: #000000;
+}
+@media only screen and (max-width: 1200px) {
+  .menuButton {
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
 }
 .menuButton:hover {
   text-decoration: underline;
@@ -251,8 +261,12 @@ nav {
 }
 
 .mobileDropdownContainer {
+  position: absolute;
+  background-color: #FFF629;
+  top: var(--nav-size);
   left: 0;
-  width: 100%;
+  width: 100vw;
+  height: calc(100vh - var(--nav-size));
   text-align: center;
 }
 .mobileDropdownContainer a {
@@ -405,7 +419,11 @@ main {
 }
 @media only screen and (max-width: 1200px) {
   .mainWalletContainer {
+    position: unset;
     right: 8px;
+    margin: 16px;
+    border: none;
+    width: initial;
   }
 }
 #mainDisconnect {
@@ -421,6 +439,13 @@ main {
   width: 172px;
   height: 34px;
   border: none;
+}
+@media only screen and (max-width: 1200px) {
+  #mainDisconnect {
+    width: 100%;
+    margin-left: 16px;
+    margin-right: 16px;
+  }
 }
 #mainDisconnect:hover {
   font-weight: bold;
@@ -516,6 +541,13 @@ main {
 @media only screen and (max-width: 1200px) {
   .mainControlsLast {
     padding-right: 8px;
+  }
+  .walletBadge {
+    width: 100%; 
+  }
+  .mainControlsLast {
+    padding: 16px;
+    padding-bottom: 0;
   }
 }
 
@@ -1698,15 +1730,6 @@ input[type="range"] {
 }
 
 
-
-@media only screen and (max-width: 1200px) {
-  #mainNav {
-    justify-content: space-between;
-    padding-right: 0;
-    width: 100vw;
-  }
-}
-
 .hamburgerElement {
   padding: 16px;
   font-family: GeneralSans;
@@ -1759,6 +1782,22 @@ input[type="range"] {
   color: var(--control-grey);
 }
 
+@media only screen and (max-width: 1200px) {
+  #mainNav {
+    justify-content: space-between;
+    padding-right: 0;
+    width: 100vw;
+  }
+  .mainLogo {
+    padding: 0;
+    padding-left: 16px;
+  }
+  .hamburgerIcon {
+    margin-right: 24px;
+  }
+}
+
+
 
 /** Default Landing Grid*/
 #landingGrid {
@@ -1784,6 +1823,7 @@ input[type="range"] {
   grid-template-areas:  "picture details songs"
                         "player actions songs";
 }
+
 
 #pictureBox {
   grid-area: picture;
@@ -1847,25 +1887,6 @@ input[type="range"] {
   box-shadow: 4px 4px 60px rgba(0, 0, 0, 0.2);
   border-radius: 20px;
 }
-#splashInfoFlex {
-  /*grid-area: info;*/
-  display: flex;
-  width: 438px;
-  background-color: yellow;
-  color: #F2F2F2;
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border-radius: 10px;
-  flex-direction: column;
-  margin-top: var(--spacing-5);
-  margin-left: 60px;
-  padding: 24px;
-  position: relative;
-  z-index: 2;
-}
-#splashInfoFlex::-webkit-scrollbar {
-  display: none;
-}
 
 #title {
   font-family: GeneralSans;
@@ -1880,6 +1901,15 @@ input[type="range"] {
   margin: 0;
   text-transform: uppercase;
   border-radius: 12px;
+}
+
+.mobileTitle {
+  font-size: 20px !important;
+  line-height: 27px !important;
+  text-align: center !important;
+  margin-bottom: 24px !important;
+
+  grid-area: title;
 }
 
 #description {
@@ -2000,18 +2030,7 @@ input[type="range"] {
   color: #000000;
   margin-right: 8px;
 }
-.splashSmallInfoBoxDollarPrice {
-  margin-top: 0;
-  padding-top: 0;
-  text-align: right;
-  font-size: 12px;
-  font-weight: normal;
-}
 
-#splashAudioContainer {
-  display: flex;
-  align-items: center;
-}
 .artistListElement {
   display: flex;
   flex-direction: row;
@@ -2028,7 +2047,7 @@ input[type="range"] {
 .artistListElementFirst {
   flex-grow: 1;
   margin: 0;
-  font-family: 'General Sans';
+  font-family: GeneralSans;
   font-style: normal;
   font-weight: 600;
   font-size: 20px;
@@ -2074,89 +2093,81 @@ input[type="range"] {
   left: 000px;
 }
 @media only screen and (max-width: 1200px) {
-  #splashLandingGrid {
-    grid-template-rows: auto auto;
-    grid-template-columns: none;
-    padding-left: 0;
-    padding-right: 0;
-  }
-  #splashInfoFlex {
-    margin-left: 0;
-    margin-top: 0;
-    width: 94vw;
-    border-radius: 0;
-  }
-  #splashArtistDescBox {
-    grid-template-columns: none;
-    grid-template-rows: auto auto;
-    grid-gap: 24px;
-    width: 100%;
-  }
-  #splashDesc {
-    max-height: none;
-    overflow-y: visible;
-  }
-  .splashOneObject {
-    display: none;
-    background: red ;
-  }
-  .splash-eq {
-    display: none;
-  }
-  #splashSmallInfoBox {
-    flex-wrap: wrap;
-    margin-top: 0;
-  }
-  .smallInfoBoxValue {
-    flex-basis: 100%;
-    flex-grow: 1;
-    text-align: end;
-  }
-  .splashInfoElementSecond {
-    flex-grow: 0;
-  }
-  .splashSmallInfoBoxElement {
-    height: auto;
-  }
-  .Week2splashInfoFlex {
-    padding: 10px !important;
-  }
-  .noFlexBasis {
-    flex-basis: auto;
-  }
-  #songTitle img {
-    height: auto;
-    max-width: 80%;
-  }
-  #buy {
-    margin: auto;
-    padding: var(--spacing-2);
-    text-align: center;
-  }
-  #splashLandingGrid5 {
+  #landingGrid {
+    margin: 16px;
     padding: 0;
-    grid-template: auto auto / auto auto;
-  }
-  #picture {
-    height: 50vw;
-    margin: auto;
-    text-align: center;
-  }
-  #pictureContainer {
-    width: 100vw;
+    margin-top: var(--nav-size);
     height: auto;
-    text-align: center;
+    grid-template-columns: 100%;
+    grid-template-rows: auto  ;
+    grid-template-areas:  "title"
+                          "picture"
+                          "player"
+                          "details"
+                          "actions";
+  }
+
+  #detailsBox {
+    margin: 0;
+    padding: 16px;
+  }
+
+  #playerBox {
+    margin-top: 8px;
+    margin-bottom: 24px;
+  }
+
+  #detailsBoxScrollContainer {
+    margin: 0;
+    overflow-y: visible;
+    height: 100%;
+  }
+
+  #artistList {
+    margin: 0;
+    margin-top: 4px;
+  }
+  .artistListElement {
+    margin-bottom: 4px;
+  }
+
+  .smallInfoElement {
+    font-size: 16px;
+    line-height: 22px;
+  }
+  
+  .smallInfoBoxValue {
+    font-size: 20px;
+    line-height: 27px;
+  }
+
+  #description {
+    font-size: 14px;
+    line-height: 24px;
+    text-align: justify;
+    margin: 0;
+    margin-bottom: 51px;
+  }
+  
+  #actionsBox {
+    margin: 0;
+    padding: 0;
+  }
+
+  #buy {
+    margin-top: 24px;
+    margin-bottom: 48px;
+    justify-content: center;
+  }
+
+  #buy button {
+    font-size: 18px;
   }
 }
 
 
 
 
-
-#beatDAObackground {
-  
-  background-size: cover;
-}
 
 
 /* a11y*/

@@ -411,7 +411,6 @@ export async function verify_sha256(blob, hash) {
 }
 
 export function logout() {
-  console.log("?")
   window.walletConnection.signOut()
   //window.location.replace(window.location.origin + window.location.pathname)               // reload page
 }

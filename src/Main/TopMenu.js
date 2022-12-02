@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import hamburger from '../assets/hamburger_white.svg'
+import hamburger from '../assets/hamburger.svg'
 import 'regenerator-runtime/runtime';
 import Wallet from './Wallet';
 import logo from '../assets/DaoLogo.svg';
+import smallLogo from '../assets/smallLogo.svg';
+import xIcon from '../assets/xButton.svg';
 
 
 /** Top Menu for new */
@@ -16,19 +18,35 @@ export default function TopMenuSplash1({setShowWallet, showWallet}) {
     setShowWallet(false);
   }
 
+  function xClicked() {
+    setMenuOpen(false);
+    setShowWallet(false);
+  }
+
 
   if (screenWidth < 1200) {                               // This is the hamburger view
     return (
       <>
         <nav id="mainav">
+          <Link to={'/'} className='mainLogo'>
+            <img src={smallLogo} alt={'DAOrecords'} />
+          </Link>
           <button onClick={hamburgerClicked} className="hamburgerIcon">
-            <img src={hamburger} alt='Menu'></img>
+            <img src={menuOpen? xIcon : hamburger} alt='Menu'></img>
           </button>
-          <Wallet 
-            setShowWallet={setShowWallet}
-            showWallet={showWallet}
-            setMenuOpen={setMenuOpen}
-          />
+
+          {menuOpen && (
+            <section className="mobileDropdownContainer">
+              <Link to={'/my-nfts'} className="controlsButton menuButton">My NFTs</Link>
+
+              <Wallet 
+                setShowWallet={setShowWallet}
+                showWallet={false}
+                mobile={true}
+                setMenuOpen={setMenuOpen}
+              />
+            </section>
+          )}
         </nav>
       </>
     )
@@ -36,7 +54,7 @@ export default function TopMenuSplash1({setShowWallet, showWallet}) {
     return (
       <nav id="mainNav">
         <Link to={'/'} className='mainLogo'>
-          <img src={logo} alt={'SoundSplash'} />
+          <img src={logo} alt={'DAOrecords'} />
         </Link>
         <Link to={'/my-nfts'} className="controlsButton menuButton">My NFTs</Link>
 

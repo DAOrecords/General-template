@@ -3,7 +3,7 @@ import { login, logout, getBalance } from '../utils';
 import nearLogo from '../assets/near_black.svg';
 
 
-export default function Wallet({setShowWallet, showWallet, setMenuOpen}) {
+export default function Wallet({setShowWallet, showWallet, mobile = false, setMenuOpen}) {
   const [balance, setBalance] = React.useState("NaN");
   const [dollar, setDollar] = React.useState("NaN");
 
@@ -27,6 +27,7 @@ export default function Wallet({setShowWallet, showWallet, setMenuOpen}) {
   function disconnectClicked() {
     logout();
     setShowWallet(false);
+    setMenuOpen(false);
   }
 
   function badgeClicked() {
@@ -73,6 +74,22 @@ export default function Wallet({setShowWallet, showWallet, setMenuOpen}) {
             </div>
 
           </div>
+        )}
+
+        {mobile && (
+          <div id="wallet" className="mainWalletContainer" onClick={(e) => e.stopPropagation()}>
+          <div id="mainWalletBalanceFlex">
+            <p>Balance</p>
+            
+            <p className="walletFlexPlaceholder"></p>
+            <p>{formatNumber(balance, 1)}</p>
+            <img src={nearLogo} alt={'N'} className="mainWalletBalanceFlexNear"></img>
+          </div>            
+          
+          <div id="mainWalletButtonContainer">
+            <button onClick={disconnectClicked} id="mainDisconnect">Disconnect</button>
+          </div>
+        </div>          
         )}
       </>
     )

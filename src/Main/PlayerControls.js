@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 export default function PlayerControls({playing, setPlay, dark = true, loading, isAlbum, listLength, selectedSong, changeSong, audioRef}) {
   const [timeoutId, setTimeoutId] = useState(setTimeout(timeoutFunc, 1000));
   const [time, setTime] = useState("0");
+  const mobile = window.innerWidth < 1200;
   
   function timeoutFunc() {
     setTime(audioRef.current.currentTime);
@@ -89,8 +90,8 @@ export default function PlayerControls({playing, setPlay, dark = true, loading, 
       <div id="playerButtons">
         {isAlbum && <button onClick={previousSong}  className='playerButton'><PrevIcon  /></button>}
         {playing
-          ? <button onClick={stopPlaying}  className='playerButton'><PauseIcon  /></button>
-          : <button onClick={startPlaying} className='playerButton'><PlayIcon /></button>
+          ? <button onClick={stopPlaying}  className='playerButton'><PauseIcon size={mobile? "32" : "40"} /></button>
+          : <button onClick={startPlaying} className='playerButton'><PlayIcon size={mobile? "32" : "40"} /></button>
         }
         {isAlbum && <button onClick={nextSong}  className='playerButton'><NextIcon  /></button>}
       </div>
@@ -98,18 +99,18 @@ export default function PlayerControls({playing, setPlay, dark = true, loading, 
   )
 }
 
-function PlayIcon() {
+function PlayIcon({size = 40}) {
   return (
-    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width={size} height={size} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="20" cy="20" r="20" fill="black"/>
       <path d="M27.3027 20.0727L15.0527 27.1452L15.0527 13.0001L27.3027 20.0727Z" fill="white"/>
     </svg>
   );
 }
 
-function PauseIcon() {
+function PauseIcon({size = 40}) {
   return(
-    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width={size} height={size} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="20" cy="20" r="20" fill="black"/>
       <path d="M14 13H18V27H14V13Z" fill="white"/>
       <path d="M22 13H26V27H22V13Z" fill="white"/>

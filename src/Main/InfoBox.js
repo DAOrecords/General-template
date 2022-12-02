@@ -13,6 +13,7 @@ export default function InfoBox({tokenId, metadata, albumName, newAction}) {
   if (dashes.length === 2) rootID = tokenId;                      // Root NFT
   const screenWidth = window.innerWidth;
   const screenHeight = window.innerHeight;
+  const mobile = (screenWidth < 1200);
   const extra = JSON.parse(metadata.extra);
   
   let userAgentString = navigator.userAgent;
@@ -36,7 +37,7 @@ export default function InfoBox({tokenId, metadata, albumName, newAction}) {
 
   return (  
     <section id="detailsBox">
-      <Title title={metadata.title} albumName={albumName} />
+      {!mobile && <Title title={metadata.title} albumName={albumName} />}
       <div className="detailsBoxPlaceholder"></div>
 
       <div id="detailsBoxScrollContainer">
