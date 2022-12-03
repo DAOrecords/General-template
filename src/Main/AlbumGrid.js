@@ -1,10 +1,10 @@
 import React from 'react';
-import ThePicture from './ThePicture';
-import InfoBox from './InfoBox';
-import Buy from './Buy';
-import PlayerControls from './PlayerControls';
-import SongMenu from './SongMenu';
-import Title from './Title';
+import ThePicture from '../SubComponents/ThePicture';
+import InfoBox from '../SubComponents/InfoBox';
+import Buy from '../SubComponents/Buy';
+import PlayerControls from '../SubComponents/PlayerControls';
+import SongMenu from '../SubComponents/SongMenu';
+import Title from '../SubComponents/Title';
 
 
 /** 

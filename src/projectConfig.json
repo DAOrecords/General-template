@@ -1,5 +1,5 @@
 {
-  "test": "15",
-  "contractName": "nft.beatdao.near",
-  "admin": "daorecords.near"
+  "test": "32",
+  "contractName": "template-test2.soundsplash.testnet",
+  "admin": "optr.testnet"
 }

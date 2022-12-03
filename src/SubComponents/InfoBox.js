@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Box from './Box';
-import Desc from './Desc';
-import ArtistList from './ArtistList';
-import Title from './Title';
+import Desc from '../SubComponents/Desc';
+import ArtistList from '../SubComponents/ArtistList';
+import Title from '../SubComponents/Title';
     
 
 export default function InfoBox({tokenId, metadata, albumName, newAction}) {
@@ -25,14 +25,15 @@ export default function InfoBox({tokenId, metadata, albumName, newAction}) {
 
   useEffect(async () => {
     const contract = window.contract.contractId;
-    console.log("fetch: ", `https://daorecords.io:8443/get/collaborators?root_id=${rootID}&contract=${contract}`)
-    await fetch(`https://daorecords.io:8443/get/collaborators?root_id=${rootID}&contract=${contract}`)
+    const testnet = window.contract.account.connection.networkId === "testnet"; 
+    console.log("fetch: ", `https://daorecords.io:8443/get/collaborators?root_id=${rootID}&contract=${contract}&${testnet ? "testnet=1" : ""}`)
+    await fetch(`https://daorecords.io:8443/get/collaborators?root_id=${rootID}&contract=${contract}&${testnet ? "testnet=1" : ""}`)
       .then((res) => res.json())
       .then((json) => setArtistList(JSON.parse(JSON.parse(json.collab_list))))
       .catch((err) => console.error("Error while fetching artist list ", err));
   }, [rootID]);
 
-  const fetchLink = `https://daorecords.io:8443/fetch?cid=` + extra.music_cid;                 // Fetch url for our server
+  const fetchLink = `https://daorecords.io:8443/fetch?cid=${extra.music_cid}`;                 // Fetch url for our server
 
 
   return (  

@@ -14,7 +14,7 @@ import Withdraw from './Admin/Withdraw';
 import SingleDrop from './Main/SingleDropMain';
 import AlbumDrop from './Main/AlbumDropMain';
 import MixtapeDrop from './Main/MixtapeDropMain';
-import TransferModal from './Main/TransferModal';
+import TransferModal from './SubComponents/TransferModal';
 
 
 export default function App() {
@@ -84,6 +84,7 @@ export default function App() {
   return (
     <HashRouter>
       <Routes>
+        {/** Change this path to redirect to the default NFT drop page */}
         <Route 
           exact
           path='/'

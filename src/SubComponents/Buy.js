@@ -3,10 +3,6 @@ import { buyNFTfromVault } from '../utils';
 
 
 export default function Buy({tokenId, price, newAction}) {
-  const style = {
-
-  }
-
   function buyNFT() {
     if (!window.accountId) {
       newAction({
@@ -16,9 +12,9 @@ export default function Buy({tokenId, price, newAction}) {
     }
 
     const buyPromise = new Promise(async (resolve, reject) => {
-      const contract = "nft.beatdao.near";
-      //window.history.pushState({}, document.title, "/" + `?contract=${contract}`);
-      const buyResult = await buyNFTfromVault("nft.beatdao.near", tokenId, price);
+      const contract = window.contract.contractId;
+      window.history.pushState({}, document.title, "/" + `?contract=${contract}`);
+      const buyResult = await buyNFTfromVault(contract, tokenId, price);
       if (buyResult) {
         resolve("Buying the NFT was successul (message from promise)");
       } else {
@@ -35,7 +31,7 @@ export default function Buy({tokenId, price, newAction}) {
 
   return (
     <div id="buy">
-      <button  onClick={buyNFT} style={style}>Buy Now</button>
+      <button  onClick={buyNFT}>Buy Now</button>
     </div>
   )
 }

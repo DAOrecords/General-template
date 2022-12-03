@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { ToastContainer, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Footer from './Footer';
-import TopMenu from './TopMenu';
+import Footer from '../SubComponents/Footer';
+import TopMenu from '../SubComponents/TopMenu';
 import { getListForAccount, getNftDetailsForList } from '../utils';
-import NftCard from './NftCard';
+import NftCard from '../SubComponents/NftCard';
 import artistLists from '../artistLists.json';
 import { useNavigate } from 'react-router-dom';
 import Cd1 from '../assets/cd1.png';
 import Cd2 from '../assets/cd2.png';
-import Player from './Player';
+import Player from '../SubComponents/Player';
 
 
 export default function MyNFTs({newAction, openGuestBook, setGuestBook, setShowWallet, showWallet}) {
@@ -45,7 +45,8 @@ export default function MyNFTs({newAction, openGuestBook, setGuestBook, setShowW
 
   useEffect(async () => {
     // Update list of NFTs for owner on the backend, the list should be up-to-date after BUY action, but we are doing this anyway.
-    await fetch(`https://daorecords.io:8443/update/all_nfts_for_owner?owner=${window.accountId}`)
+    const testnet = window.contract.account.connection.networkId === "testnet"; 
+    await fetch(`https://daorecords.io:8443/update/all_nfts_for_owner?owner=${window.accountId}&${testnet ? "testnet=1" : ""}`)
       .then((res) => res.json())
       .then((response) => {
         if (response.success) console.log("List of NFTs for user updated (server side)");

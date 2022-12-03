@@ -3,10 +3,10 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getBuyableTokens, verify_sha256 } from '../utils';
 import 'regenerator-runtime/runtime';
-import LineVisualizer from './Equalizer';
+import LineVisualizer from '../SubComponents/Equalizer';
 import SingleGrid from './SingleGrid';
-import Footer from './Footer';
-import TopMenu from './TopMenu';
+import Footer from '../SubComponents/Footer';
+import TopMenu from '../SubComponents/TopMenu';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -24,6 +24,7 @@ export default function SingleDrop({index, newAction, openGuestBook, setGuestBoo
   React.useEffect(async () => {    
     const urlParams = window.location.search;
     const urlObj = new URLSearchParams(document.location.search);
+    const testnet = window.contract.account.connection.networkId === "testnet"; 
     //window.history.pushState({}, document.title, "/" + "");
     if (urlParams.includes('errorCode')) {
       newAction({
@@ -32,7 +33,7 @@ export default function SingleDrop({index, newAction, openGuestBook, setGuestBoo
     } else if (urlParams.includes('transactionHashes')) {
       
       console.log("urlObj.get('contract'): ", urlObj.get('contract'))
-      await fetch(`https://daorecords.io:8443/update/nfts_for_owner?owner=${window.accountId}&contract=${urlObj.get('contract')}`)
+      await fetch(`https://daorecords.io:8443/update/nfts_for_owner?owner=${window.accountId}&contract=${urlObj.get('contract')}&${testnet ? "testnet=1" : ""}`)
         .then((res) => res.json())
         .then((response) => {
           if (response.success) console.log("List of NFTs for user updated (server side)");

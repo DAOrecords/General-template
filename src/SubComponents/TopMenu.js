@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import hamburger from '../assets/hamburger.svg'
 import 'regenerator-runtime/runtime';
-import Wallet from './Wallet';
+import Wallet from '../SubComponents/Wallet';
 import logo from '../assets/DaoLogo.svg';
 import smallLogo from '../assets/smallLogo.svg';
 import xIcon from '../assets/xButton.svg';

@@ -2,10 +2,14 @@ import { connect, Contract, keyStores, WalletConnection, utils, KeyPair, provide
 import * as nearAPI from "near-api-js";
 const CryptoJS = require('crypto-js');
 
-const mode = 'mainnet';       // 'mainnet' || 'development'
+const mode = 'development';       // 'mainnet' || 'development'
 
 const provider = new providers.JsonRpcProvider(
   "https://rpc.mainnet.near.org"
+);
+
+const testnetProvider = new providers.JsonRpcProvider(
+  "https://rpc.testnet.near.org"
 );
 
 /** Real config. It's async. It was important when we tried to clone the site, so the config is not burnt in */
@@ -194,6 +198,7 @@ export async function getBuyableTokens() {
 
 export async function getNextBuyableInstance(contract, rootId) {
   let nextId = null;
+  let rawResult = null;
   const args = {
     root_id: rootId
   }
@@ -201,14 +206,18 @@ export async function getNextBuyableInstance(contract, rootId) {
   try {
     const stringObj = JSON.stringify(args);
     const base64Obj = btoa(stringObj);
-   
-    const rawResult = await provider.query({
+
+    const queryObj = {
       request_type: "call_function",
       account_id: contract,
       method_name: "get_next_buyable",
       args_base64: base64Obj,
       finality: "optimistic",
-    });
+    };
+   
+    if (mode === "mainnet")     rawResult = await provider.query(queryObj);
+    if (mode === "development") rawResult = await testnetProvider.query(queryObj);
+    
 
     nextId = JSON.parse(Buffer.from(rawResult.result).toString());
     return nextId;
@@ -219,13 +228,14 @@ export async function getNextBuyableInstance(contract, rootId) {
 
 export async function getListForAccount() {
   let result = null;
+  const testnet = window.contract.account.connection.networkId === "testnet";
   
   const options = {
     account_id: window.accountId,
     limit: 10000,
   }
 
-  await fetch(`https://daorecords.io:8443/get/nft_list_for_owner?user=` + window.accountId)
+  await fetch(`https://daorecords.io:8443/get/nft_list_for_owner?user=${window.accountId}&${testnet ? "testnet=1" : ""}`)
     .then((res) => res.json())
     .then((response) => {
       console.log("Response: ", response);
@@ -237,11 +247,12 @@ export async function getListForAccount() {
 }
 
 export async function getNftListWithThumbnails(start, pageSize) {
+  const testnet = window.contract.account.connection.networkId === "testnet"; 
   // We don't use start and pageSize yet
 
   let result = [];
 
-  await fetch(`https://daorecords.io:8443/get/nft_list`)
+  await fetch(`https://daorecords.io:8443/get/nft_list?${testnet ? "testnet=1" : ""}`)
     .then((res) => res.json())
     .then((response) => {
       result = response.list;
@@ -252,9 +263,10 @@ export async function getNftListWithThumbnails(start, pageSize) {
 }
 
 export async function getNumberOfNfts() {
+  const testnet = window.contract.account.connection.networkId === "testnet"; 
   let result = null;
 
-  await fetch(`https://daorecords.io:8443/get/nft_list_length`)
+  await fetch(`https://daorecords.io:8443/get/nft_list_length?${testnet ? "testnet=1" : ""}`)
     .then((res) => res.json())
     .then((response) => {
       result = response.nft_count;
@@ -318,6 +330,7 @@ export async function getGuestBookEntries() {
 
 // Get details for a provided NFT list 
 export async function getNftDetailsForList(contract, list) {
+  let rawResult = null;
   const params = {
     token_list: list
   }
@@ -325,13 +338,16 @@ export async function getNftDetailsForList(contract, list) {
   const stringObj = JSON.stringify(params);
   const base64Obj = btoa(stringObj);
  
-  const rawResult = await provider.query({
+  const queryObj = {
     request_type: "call_function",
     account_id: contract,
     method_name: "nft_token_details_for_list",
     args_base64: base64Obj,
     finality: "optimistic",
-  });
+  }
+
+  if (mode === "mainnet")     rawResult = await provider.query(queryObj);
+  if (mode === "development") rawResult = await testnetProvider.query(queryObj);
 
   const result = JSON.parse(Buffer.from(rawResult.result).toString());
 
