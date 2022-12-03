@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
  *  The main entry pont for the MixtapeDrop
  *  This is the component that has to be used in App.js
  */
-export default function MixtapeDrop({newAction, openGuestBook, setGuestBook, setShowWallet, showWallet}) {
+export default function MixtapeDrop({newAction, openGuestBook, setGuestBook, setShowWallet, showWallet, mixtapeName}) {
   const screenWidth = window.innerWidth;
   const [nftList, setNftList] = React.useState([]);  
   const [play, setPlay] = React.useState(false);
@@ -64,7 +64,12 @@ export default function MixtapeDrop({newAction, openGuestBook, setGuestBook, set
 
   if (nftList.length === 0) return <p>Loading...</p>
 
+  function changeSong(index) {
+    setSelected(index);
+    setPlay(true);
+  }
 
+  
   return (
     <>
       {openGuestBook && ( <GuestBook openModal={openGuestBook} newAction={newAction} setOpenModal={setGuestBook} /> )}
@@ -76,10 +81,11 @@ export default function MixtapeDrop({newAction, openGuestBook, setGuestBook, set
           <audio ref={audioRef} src={`https://daorecords.io:8443/fetch?cid=${JSON.parse(nftList[selected].metadata.extra).music_cid}`} />
 
           <MixtapeGrid
+            mixtapeName={mixtapeName}
             tokenId={nftList[selected].token_id}
             metadata={nftList[selected].metadata}
             songList={nftList.map((nftEntry) => nftEntry.metadata.title)}
-            changeSong={setSelected}
+            changeSong={changeSong}
             selected={selected}
             newAction={newAction}
             playing={play}

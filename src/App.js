@@ -153,12 +153,14 @@ export default function App() {
          * A Mixtape NFT Drop
          * Index is not provided, 0 will be selected first. Song name is shown, just as with SingleDrop. Very similar to Album.
          * Mixtape name is shown in the SongMenu
+         * @mixtapeName is different in @albumName in that @mixtapeName is only shown in mobile
          */}
         <Route 
           exact
           path='mixtape-drop-example'
           element={
             <MixtapeDrop
+              mixtapeName={"Wonderful Mixtape"}
               newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} 
             />
           }

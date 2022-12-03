@@ -64,6 +64,11 @@ export default function AlbumDrop({newAction, openGuestBook, setGuestBook, setSh
 
   if (nftList.length === 0) return <p>Loading...</p>
 
+  function changeSong(index) {
+    setSelected(index);
+    setPlay(true);
+  }
+
 
   return (
     <>
@@ -80,7 +85,7 @@ export default function AlbumDrop({newAction, openGuestBook, setGuestBook, setSh
             tokenId={nftList[selected].token_id}
             metadata={nftList[selected].metadata}
             songList={nftList.map((nftEntry) => nftEntry.metadata.title)}
-            changeSong={setSelected}
+            changeSong={changeSong}
             selected={selected}
             newAction={newAction}
             playing={play}

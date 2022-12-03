@@ -1859,6 +1859,24 @@ input[type="range"] {
   border-radius: 20px;  
   background: #000000;
 }
+#songMenuBoxDropdownButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: transparent;
+  border: 3px solid #000000;
+  border-radius: 12px;
+  width: 100%;
+  font-family: GeneralSans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 27px;
+  letter-spacing: 0.01em;
+  color: #000000;
+  margin-bottom: 24px;
+}
 
 .detailsBoxPlaceholder {
   flex-grow: 1;
@@ -2107,6 +2125,21 @@ input[type="range"] {
                           "actions";
   }
 
+  #mixtapeGrid {
+    margin: 16px;
+    padding: 0;
+    margin-top: var(--nav-size);
+    height: auto;
+    grid-template-columns: 100%;
+    grid-template-rows: auto  ;
+    grid-template-areas:  "title"
+                          "songs"
+                          "picture"
+                          "player"
+                          "details"
+                          "actions";
+  }
+
   #detailsBox {
     margin: 0;
     padding: 16px;
@@ -2147,6 +2180,39 @@ input[type="range"] {
     text-align: justify;
     margin: 0;
     margin-bottom: 51px;
+  }
+
+  #songMenuBox {
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+  }
+  #songMenuList {
+    position: absolute;
+    margin: 16px;
+    padding: 8px;
+    margin-top: -20px;
+    left: 0;
+    width: calc(100% - 48px);
+    height: max-content;
+    background: #FFF629;
+    box-shadow: 2px 4px 50px rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    z-index: 3;
+  }
+  .songMenuElement {
+    font-family: GeneralSans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 27px;
+    letter-spacing: 0.01em;
+    color: #000000;
+  }
+  .songMenuElementSelected {
+    border: 3px solid #000000;
+    background-color: transparent;
+    border-radius: 12px;
   }
   
   #actionsBox {

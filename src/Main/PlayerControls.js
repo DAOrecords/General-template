@@ -22,6 +22,7 @@ export default function PlayerControls({playing, setPlay, dark = true, loading, 
     if (playing === false) {
       clearTimeout(timeoutId)
     } else {
+      clearTimeout(timeoutId)
       setTimeoutId(setTimeout(timeoutFunc, 1000));
     }
     /*return () => {

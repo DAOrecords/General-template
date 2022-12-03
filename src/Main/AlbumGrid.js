@@ -4,6 +4,7 @@ import InfoBox from './InfoBox';
 import Buy from './Buy';
 import PlayerControls from './PlayerControls';
 import SongMenu from './SongMenu';
+import Title from './Title';
 
 
 /** 
@@ -12,12 +13,16 @@ import SongMenu from './SongMenu';
  *  This is almost the same as MixtapeGrid and SingleGrid, could be made into a single component easily.
  */
 export default function AlbumGrid({albumName, tokenId, metadata, songList, selected, changeSong, newAction, playing, setPlay, audioRef}) {
-  const screenWidth = window.innerWidth;
-  const screenHeight = window.innerHeight;
-  const overflow = ((screenHeight < 718) && (screenWidth > 1200)) ? ({ overflowY: "scroll" }) : null;
+  const mobile = (window.innerWidth < 1200);
 
   return (
     <article id="mixtapeGrid">
+      {mobile && <Title
+        title={metadata.title} 
+        albumName={albumName}
+        mobile={mobile}
+      />}
+
       <ThePicture 
         imageCID={metadata.media} 
         playing={playing} 
