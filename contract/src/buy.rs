@@ -50,7 +50,7 @@ impl Contract {
         let payout_table = self.revenue_payout(                   // Will contain amounts in yoctoNEAR
             token_id.clone(),
             price,
-            6
+            16
         );
         
         for (key, amount) in payout_table.payout.iter() {         // Send the money to each account on the list

@@ -26,7 +26,6 @@ export default function MixtapeDrop({newAction, openGuestBook, setGuestBook, set
     const urlParams = window.location.search;
     const urlObj = new URLSearchParams(document.location.search);
     const testnet = window.contract.account.connection.networkId === "testnet"; 
-    //window.history.pushState({}, document.title, "/" + "");
     if (urlParams.includes('errorCode')) {
       newAction({
         errorMsg: "There was an error while processing the transaction!", errorMsgDesc: urlObj.get('errorCode'),
@@ -35,14 +34,15 @@ export default function MixtapeDrop({newAction, openGuestBook, setGuestBook, set
       
       console.log("urlObj.get('contract'): ", urlObj.get('contract'))
       await fetch(`https://daorecords.io:8443/update/nfts_for_owner?owner=${window.accountId}&contract=${urlObj.get('contract')}&${testnet ? "testnet=1" : ""}`)
-        .then((res) => res.json())
-        .then((response) => {
+      .then((res) => res.json())
+      .then((response) => {
           if (response.success) console.log("List of NFTs for user updated (server side)");
           else console.error("Error while updating entries for user: ", response.error);
         })
         .catch((err) => console.error(`Error while updating the list of NFTs for owner ${window.accountId}!`, err));
-
-      //navigate('/my-nfts');
+        
+      window.history.pushState({}, document.title, "/" + "");
+      navigate('/my-nfts');
       newAction({
         successMsg: "Success!", successMsgDesc: "You bought a new NFT!",
       });

@@ -35,7 +35,8 @@ export default function MixtapeGrid({mixtapeName, tokenId, metadata, songList, c
         newAction={newAction}
       />
 
-      <SongMenu 
+      <SongMenu
+        mixtapeName={mixtapeName}
         songList={songList} 
         selected={selected} 
         changeSong={changeSong} 

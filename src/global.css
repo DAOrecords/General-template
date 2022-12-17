@@ -667,6 +667,23 @@ main {
   color: yellow;
   font-style: bold;
 }
+.mynftsWalletBadge {
+  width: 219px;
+  height: 42px;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.08);
+  border: none;
+  border-radius: 3px;
+  background: #FFAD0D;
+  font-family: GeneralSans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 160%;
+  color: #000000;
+  cursor: pointer;
+}
+
+
 
 #counter {
   font-family: Technology;
@@ -1806,7 +1823,7 @@ input[type="range"] {
   margin-right: 113px;
   height: 60vh;
   display: grid;
-  grid-template-columns: 24vw minmax(60vw, auto);
+  grid-template-columns: 24vw auto;
   grid-template-rows: 24vw 92px;
   grid-template-areas:  "picture details"
                         "player actions";
@@ -1818,7 +1835,7 @@ input[type="range"] {
   margin-right: 113px;
   height: 60vh;
   display: grid;
-  grid-template-columns: 24vw minmax(30vw, auto) minmax(20vw, auto);
+  grid-template-columns: 24vw auto 24vw;
   grid-template-rows: 24vw 92px;
   grid-template-areas:  "picture details songs"
                         "player actions songs";
@@ -1960,6 +1977,7 @@ input[type="range"] {
   text-transform: uppercase;
   color: #FFFFFF;
   margin: 0;
+  margin-bottom: 40px;
 }
 #songMenuList {
   list-style-type: none;
