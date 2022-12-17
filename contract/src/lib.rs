@@ -93,8 +93,8 @@ impl Contract {
             admin,
             NFTContractMetadata {
                 spec: "nft-1.0.0".to_string(),
-                name: "Fono Root".to_string(),
-                symbol: "FONO".to_string(),
+                name: "Buy At Your Own Risk".to_string(),
+                symbol: "BAYOR".to_string(),
                 icon: Some("https://bafkreidcyhpdyo7kq4kdcr3yr3l5ewyey6mvzqlxjm67n4opqxhw2zllja.ipfs.nftstorage.link/s".to_string()),
                 base_uri: None,
                 reference: None,
