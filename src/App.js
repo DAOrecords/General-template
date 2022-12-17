@@ -161,7 +161,7 @@ export default function App() {
           path='mixtape-drop-example'
           element={
             <MixtapeDrop
-              mixtapeName={"Wonderful Mixtape"}
+              mixtapeName={"BAYOR"}
               newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} 
             />
           }
