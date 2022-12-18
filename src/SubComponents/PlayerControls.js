@@ -91,8 +91,8 @@ export default function PlayerControls({playing, setPlay, dark = true, loading, 
       <div id="playerButtons">
         {isAlbum && <button onClick={previousSong}  className='playerButton'><PrevIcon  /></button>}
         {playing
-          ? <button onClick={stopPlaying}  className='playerButton'><PauseIcon size={mobile? "32" : "40"} /></button>
-          : <button onClick={startPlaying} className='playerButton'><PlayIcon size={mobile? "32" : "40"} /></button>
+          ? <button onClick={() => {  audioRef.current.pause(); stopPlaying();  }}  className='playerButton'><PauseIcon size={mobile? "32" : "40"} /></button>
+          : <button onClick={() => {  audioRef.current.play(); startPlaying();  }} className='playerButton'><PlayIcon size={mobile? "32" : "40"} /></button>
         }
         {isAlbum && <button onClick={nextSong}  className='playerButton'><NextIcon  /></button>}
       </div>
