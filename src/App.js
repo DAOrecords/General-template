@@ -80,6 +80,8 @@ export default function App() {
   }
 
   // !! window.history.pushState({}, document.title, "/" + ""); was DEACTIVATED!
+  // DEACTIVATED NFTS
+  const deactivatedList = ["fono-root-1"];
 
   return (
     <HashRouter>
@@ -144,7 +146,8 @@ export default function App() {
           path='album-drop-example'
           element={
             <AlbumDrop 
-              albumName={"Wonderful Album"}
+              albumName={"BAYOR"}
+              deactivatedList={deactivatedList}
               newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} 
             />
           }
@@ -162,6 +165,7 @@ export default function App() {
           element={
             <MixtapeDrop
               mixtapeName={"BAYOR"}
+              deactivatedList={deactivatedList}
               newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} 
             />
           }
