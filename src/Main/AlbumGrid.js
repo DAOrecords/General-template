@@ -49,6 +49,7 @@ export default function AlbumGrid({albumName, tokenId, metadata, songList, selec
         listLength={songList.length}
         selectedSong={selected}
         changeSong={changeSong}
+        newAction={newAction}
         audioRef={audioRef} 
       />
       
