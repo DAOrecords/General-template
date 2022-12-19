@@ -86,11 +86,17 @@ export default function App() {
   return (
     <HashRouter>
       <Routes>
-        {/** Change this path to redirect to the default NFT drop page */}
+        {/** Examples are not deleted, so we can merge to master.*/}
         <Route 
           exact
           path='/'
-          element={<Navigate replace to="/mixtape-drop-example" />}
+          element={
+            <MixtapeDrop
+              mixtapeName={"BAYOR"}
+              deactivatedList={deactivatedList}
+              newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} 
+            />
+          }
         />
 
         <Route 
@@ -170,6 +176,7 @@ export default function App() {
             />
           }
         />
+        
 
         <Route 
           exact
