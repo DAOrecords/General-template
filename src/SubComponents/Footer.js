@@ -37,17 +37,17 @@ export default function Footer({socialsEnabled}) {
           {socialsEnabled && (
           <>          
             <li key={7} className="footerSocialLi">
-              <a href={'https://ecosia.org/'} >
+              <a href={'https://instagram.com/DAOrecords_'} >
                 <Insta />
               </a>
             </li>
             <li key={8} className="footerSocialLi">
-              <a href={'https://ecosia.org/'} >
+              <a href={'https://twitter.com/DAOrecords_'} >
                 <Twitter />
               </a>
             </li>
             <li key={9} className="footerSocialLi">
-              <a href={'https://ecosia.org/'} >
+              <a href={'http://www.daorecords.org/'} >
                 <Website />
               </a>
             </li>
