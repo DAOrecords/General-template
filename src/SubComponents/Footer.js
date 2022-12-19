@@ -21,7 +21,7 @@ export default function Footer({socialsEnabled}) {
             </a>
           </li>
           <li key={2}>
-            <a href={'https://linktr.ee/DAOrecords'} >
+            <a href={'https://linktr.ee/vandigital'} >
               <img src={VanDAO} height={"120px"} alt={'VanDAO'} />
             </a>
           </li>
