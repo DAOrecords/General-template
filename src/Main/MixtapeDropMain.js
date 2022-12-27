@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
  *  The main entry pont for the MixtapeDrop
  *  This is the component that has to be used in App.js
  */
-export default function MixtapeDrop({newAction, openGuestBook, setGuestBook, setShowWallet, showWallet, mixtapeName}) {
+export default function MixtapeDrop({newAction, openGuestBook, setGuestBook, setShowWallet, showWallet, mixtapeName, deactivatedList}) {
   const screenWidth = window.innerWidth;
   const [nftList, setNftList] = React.useState([]);  
   const [play, setPlay] = React.useState(false);
@@ -49,7 +49,16 @@ export default function MixtapeDrop({newAction, openGuestBook, setGuestBook, set
     }
 
     const buyable = await getBuyableTokens();
-    const orderedBuyable = buyable.sort(function(a, b) {
+    const filteredBuyable = buyable.filter((nft) => {
+      let rootId = null;
+      if (nft.token_id.match(/-/g).length === 2) {
+        rootId = nft.token_id;
+      } else {
+        rootId = nft.token_id.substr(0, nft.token_id.lastIndexOf("-"));
+      }
+      return (!deactivatedList.includes(rootId));
+    });
+    const orderedBuyable = filteredBuyable.sort(function(a, b) {
       const firstNum = a.token_id.slice(10, a.token_id.lastIndexOf("-"));
       const secondNum = b.token_id.slice(10, b.token_id.lastIndexOf("-"));
       return firstNum - secondNum;

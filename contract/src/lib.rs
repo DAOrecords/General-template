@@ -66,7 +66,6 @@ pub struct Contract {
     pub tokens_by_id: LookupMap<TokenId, Token>,                                           // Keeps track of the token struct for a given token ID
     pub token_metadata_by_id: UnorderedMap<TokenId, TokenMetadata>,                        // Keeps track of the token metadata for a given token ID
     pub metadata: LazyOption<NFTContractMetadata>,                                         // Keeps track of the metadata for the contract (not metadata for NFT)
-    pub crust_key: String,                                                                 // The encrypted private key for the Crust Network
     pub guestbook: Vec<GuestBookEntry>,                                                    // The Guestbook is an array of entry objects
 }
 
@@ -93,8 +92,8 @@ impl Contract {
             admin,
             NFTContractMetadata {
                 spec: "nft-1.0.0".to_string(),
-                name: "Fono Root".to_string(),
-                symbol: "FONO".to_string(),
+                name: "Buy At Your Own Risk".to_string(),
+                symbol: "BAYOR".to_string(),
                 icon: Some("https://bafkreidcyhpdyo7kq4kdcr3yr3l5ewyey6mvzqlxjm67n4opqxhw2zllja.ipfs.nftstorage.link/s".to_string()),
                 base_uri: None,
                 reference: None,
@@ -121,7 +120,6 @@ impl Contract {
                 StorageKey::NFTContractMetadata.try_to_vec().unwrap(),
                 Some(&metadata),
             ),
-            crust_key: "".to_string(),
             guestbook: Vec::new()
         };
 

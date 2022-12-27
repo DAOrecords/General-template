@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 
-export default function PlayerControls({playing, setPlay, dark = true, loading, isAlbum, listLength, selectedSong, changeSong, audioRef}) {
+export default function PlayerControls({playing, setPlay, dark = true, loading, isAlbum, listLength, selectedSong, changeSong, audioRef, newAction}) {
   const [timeoutId, setTimeoutId] = useState(setTimeout(timeoutFunc, 1000));
   const [time, setTime] = useState("0");
   const mobile = window.innerWidth < 1200;
@@ -30,12 +30,44 @@ export default function PlayerControls({playing, setPlay, dark = true, loading, 
     };*/
   }, [playing, selectedSong]);
 
-  function stopPlaying() {
-    setPlay(false);
+  async function stopPlaying() {
+    let playPromise = new Promise(function(myResolve, myReject) {
+      audioRef.current.pause();
+
+      myResolve();
+      myReject();
+    });
+    
+    playPromise.then(
+      function(value) { 
+        setPlay(false); 
+      },
+      function(error) { 
+        newAction({
+          errorMsg: "Please enable audio elements or switch to different browser!", errorMsgDesc: "",
+        });
+       }
+    );
   }
 
-  function startPlaying() {
-    setPlay(true);
+  async function startPlaying() {
+    let playPromise = new Promise(function(myResolve, myReject) {
+        audioRef.current.play();
+        
+        myResolve();
+        myReject();
+      });
+      
+      playPromise.then(
+        function(value) { 
+          setPlay(true); 
+        },
+        function(error) { 
+          newAction({
+            errorMsg: "Please enable audio elements or switch to different browser!", errorMsgDesc: "",
+          });
+         }
+      );
   }
 
   function nextSong() { 
@@ -137,4 +169,4 @@ function NextIcon() {
       <path d="M18.7579 12.0436L12.8685 15.4439L12.8685 8.64331L18.7579 12.0436Z" fill="white"/>
     </svg>
   )
-}
+} 

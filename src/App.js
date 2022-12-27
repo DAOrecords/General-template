@@ -80,15 +80,23 @@ export default function App() {
   }
 
   // !! window.history.pushState({}, document.title, "/" + ""); was DEACTIVATED!
+  // DEACTIVATED NFTS
+  const deactivatedList = ["fono-root-1"];
 
   return (
     <HashRouter>
       <Routes>
-        {/** Change this path to redirect to the default NFT drop page */}
+        {/** Examples are not deleted, so we can merge to master.*/}
         <Route 
           exact
           path='/'
-          element={<Navigate replace to="/mixtape-drop-example" />}
+          element={
+            <MixtapeDrop
+              mixtapeName={"BAYOR"}
+              deactivatedList={deactivatedList}
+              newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} 
+            />
+          }
         />
 
         <Route 
@@ -144,7 +152,8 @@ export default function App() {
           path='album-drop-example'
           element={
             <AlbumDrop 
-              albumName={"Wonderful Album"}
+              albumName={"BAYOR"}
+              deactivatedList={deactivatedList}
               newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} 
             />
           }
@@ -161,11 +170,13 @@ export default function App() {
           path='mixtape-drop-example'
           element={
             <MixtapeDrop
-              mixtapeName={"Wonderful Mixtape"}
+              mixtapeName={"BAYOR"}
+              deactivatedList={deactivatedList}
               newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} 
             />
           }
         />
+        
 
         <Route 
           exact

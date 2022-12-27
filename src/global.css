@@ -2114,6 +2114,7 @@ input[type="range"] {
   font-style: normal;
   font-weight: 600;
   font-size: 20px;
+  white-space: nowrap;
   line-height: 160%;
 }
 #buy button:hover {

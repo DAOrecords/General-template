@@ -47,7 +47,7 @@ export default function SongMenu({mixtapeName, songList, selected, changeSong}) 
           >
             {songName}
           </li>
-        ))}
+          ))}
       </ul>
     </section>
   )
