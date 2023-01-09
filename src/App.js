@@ -79,9 +79,8 @@ export default function App() {
     }
   }
 
-  // !! window.history.pushState({}, document.title, "/" + ""); was DEACTIVATED!
   // DEACTIVATED NFTS
-  const deactivatedList = ["fono-root-1"];
+  const deactivatedList = [];
 
   return (
     <HashRouter>
@@ -91,9 +90,8 @@ export default function App() {
           exact
           path='/'
           element={
-            <MixtapeDrop
-              mixtapeName={"BAYOR"}
-              deactivatedList={deactivatedList}
+            <SingleDrop 
+              index={0} 
               newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} 
             />
           }
