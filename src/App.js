@@ -82,18 +82,40 @@ export default function App() {
   // !! window.history.pushState({}, document.title, "/" + ""); was DEACTIVATED!
   // DEACTIVATED NFTS
   const deactivatedList = [];
+  const deactivatedListFirst = ["fono-root-2", "fono-root-3"];
+  const deactivatedListSecond = ["fono-root-0", "fono-root-1"];
 
   return (
     <HashRouter>
       <Routes>
         {/** Examples are not deleted, so we can merge to master.*/}
-        <Route 
+        <Route
           exact
           path='/'
           element={
+            <Navigate to={'/second-album'} />
+          }
+        />
+
+        <Route 
+          exact
+          path='/first-album'
+          element={
             <AlbumDrop 
               albumName={"Falling Gracefully"}
-              deactivatedList={deactivatedList}
+              deactivatedList={deactivatedListFirst}
+              newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} 
+            />
+          }
+        />
+
+        <Route 
+          exact
+          path='/second-album'
+          element={
+            <AlbumDrop 
+              albumName={"Second Album"}
+              deactivatedList={deactivatedListSecond}
               newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} 
             />
           }
