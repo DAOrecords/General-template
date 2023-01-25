@@ -1,5 +1,5 @@
 import React from 'react';
-import MetaJAX from '../assets/metaJAXLogo.svg';
+import MetaJAX from '../assets/metaJAXLogo_black.png';
 
 
 export default function Footer({socialsEnabled}) {
@@ -9,7 +9,7 @@ export default function Footer({socialsEnabled}) {
         <ul>
           <li key={0}>
             <a href={'https://www.instagram.com/arturo_sandoval_arocha/?igshid=YmMyMTA2M2Y='}>
-              <img src={MetaJAX} alt={'MetaJAX'} />
+              <img src={MetaJAX} alt={'MetaJAX'} width={"140px"} />
             </a>
           </li>
 
