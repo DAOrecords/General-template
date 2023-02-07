@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
  *  The main entry pont for the AlbumDrop
  *  This is the component that has to be used in App.js
  */
-export default function AlbumDrop({newAction, openGuestBook, setGuestBook, setShowWallet, showWallet, albumName, deactivatedList}) {
+export default function AlbumDrop({newAction, openGuestBook, setGuestBook, setShowWallet, showWallet, albumName, albumList}) {
   const screenWidth = window.innerWidth;
   const [nftList, setNftList] = React.useState([]);  
   const [play, setPlay] = React.useState(false);
@@ -56,7 +56,7 @@ export default function AlbumDrop({newAction, openGuestBook, setGuestBook, setSh
       } else {
         rootId = nft.token_id.substr(0, nft.token_id.lastIndexOf("-"));
       }
-      return (!deactivatedList.includes(rootId));
+      return (albumList.includes(rootId));
     });
     const orderedBuyable = filteredBuyable.sort(function(a, b) {
       const firstNum = a.token_id.slice(10, a.token_id.lastIndexOf("-"));

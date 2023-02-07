@@ -79,10 +79,8 @@ export default function App() {
     }
   }
 
-  // !! window.history.pushState({}, document.title, "/" + ""); was DEACTIVATED!
-  // DEACTIVATED NFTS
-  const deactivatedList = [];
-  const deactivatedListFirst = [
+
+  const secondAlbum = [
     "fono-root-12",
     "fono-root-13",
     "fono-root-14",
@@ -92,12 +90,8 @@ export default function App() {
     "fono-root-18",
     "fono-root-19",
     "fono-root-20",
-    "fono-root-21",
-    "fono-root-22",
-    "fono-root-23",
-    "fono-root-24"
   ];
-  const deactivatedListSecond = [
+  const firstAlbum = [
     "fono-root-0", 
     "fono-root-1", 
     "fono-root-2", 
@@ -130,7 +124,7 @@ export default function App() {
           element={
             <AlbumDrop 
               albumName={"Rhythm & Soul"}
-              deactivatedList={deactivatedListFirst}
+              albumList={firstAlbum}
               newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} 
             />
           }
@@ -142,7 +136,7 @@ export default function App() {
           element={
             <AlbumDrop 
               albumName={"Falling Gracefully"}
-              deactivatedList={deactivatedListSecond}
+              albumList={secondAlbum}
               newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} 
             />
           }
@@ -194,6 +188,7 @@ export default function App() {
         {/** 
          * An Album NFT Drop
          * Index is not provided, 0 will be selected first. Album name is shown instead of Song name. Very similar to Mixtape
+         * @albumName is list of RootIDs that the album should display
          * The name of the album should be provided by the @albumName parameter, we could easily write a function to use the NFT contract metadata here, altough that might not be equal by the album name.
          */}
         <Route 
@@ -202,7 +197,7 @@ export default function App() {
           element={
             <AlbumDrop 
               albumName={"BAYOR"}
-              deactivatedList={deactivatedList}
+              albumList={["fono-root-0", "fono-root-1", "fono-root-2"]}
               newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} 
             />
           }
@@ -212,6 +207,7 @@ export default function App() {
          * A Mixtape NFT Drop
          * Index is not provided, 0 will be selected first. Song name is shown, just as with SingleDrop. Very similar to Album.
          * Mixtape name is shown in the SongMenu
+         * @albumName is list of RootIDs that the album should display
          * @mixtapeName is different in @albumName in that @mixtapeName is only shown in mobile
          */}
         <Route 
@@ -220,7 +216,7 @@ export default function App() {
           element={
             <MixtapeDrop
               mixtapeName={"BAYOR"}
-              deactivatedList={deactivatedList}
+              mixtapeList={["fono-root-0", "fono-root-1", "fono-root-2"]}
               newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} 
             />
           }
