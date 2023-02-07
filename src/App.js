@@ -81,19 +81,68 @@ export default function App() {
 
   // !! window.history.pushState({}, document.title, "/" + ""); was DEACTIVATED!
   // DEACTIVATED NFTS
-  const deactivatedList = ["fono-root-1"];
+  const deactivatedList = [];
+  const deactivatedListFirst = [
+    "fono-root-12",
+    "fono-root-13",
+    "fono-root-14",
+    "fono-root-15",
+    "fono-root-16",
+    "fono-root-17",
+    "fono-root-18",
+    "fono-root-19",
+    "fono-root-20",
+    "fono-root-21",
+    "fono-root-22",
+    "fono-root-23",
+    "fono-root-24"
+  ];
+  const deactivatedListSecond = [
+    "fono-root-0", 
+    "fono-root-1", 
+    "fono-root-2", 
+    "fono-root-3", 
+    "fono-root-4", 
+    "fono-root-5", 
+    "fono-root-6", 
+    "fono-root-7", 
+    "fono-root-8",
+    "fono-root-9",
+    "fono-root-10",
+    "fono-root-11"
+  ];
 
   return (
     <HashRouter>
       <Routes>
         {/** Examples are not deleted, so we can merge to master.*/}
-        <Route 
+        <Route
           exact
           path='/'
           element={
-            <MixtapeDrop
-              mixtapeName={"BAYOR"}
-              deactivatedList={deactivatedList}
+            <Navigate to={'/falling-gracefully'} />
+          }
+        />
+
+        <Route 
+          exact
+          path='/rhythm-and-soul'
+          element={
+            <AlbumDrop 
+              albumName={"Rhythm & Soul"}
+              deactivatedList={deactivatedListFirst}
+              newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} 
+            />
+          }
+        />
+
+        <Route 
+          exact
+          path='/falling-gracefully'
+          element={
+            <AlbumDrop 
+              albumName={"Falling Gracefully"}
+              deactivatedList={deactivatedListSecond}
               newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} 
             />
           }

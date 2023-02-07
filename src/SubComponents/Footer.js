@@ -1,8 +1,5 @@
 import React from 'react';
-import GraffBaseDAO from '../assets/GraffBaseLogo.png';
-import VanDAO from '../assets/VandalLogo.png';
-import BeatDAO from '../assets/beatLogo.png';
-import NearHub from '../assets/near_hub_logo.svg';
+import MetaJAX from '../assets/metaJAXLogo_black.png';
 
 
 export default function Footer({socialsEnabled}) {
@@ -11,23 +8,8 @@ export default function Footer({socialsEnabled}) {
       <footer>
         <ul>
           <li key={0}>
-            <a href={'https://nearhub.club/G99xQHP/beat-dao-den'}>
-              <img src={NearHub} alt={'NearHub'} />
-            </a>
-          </li>
-          <li key={1}>
-            <a href={'https://linktr.ee/BeatDAO'} >
-              <img src={BeatDAO} alt={'BeatDAO'} />
-            </a>
-          </li>
-          <li key={2}>
-            <a href={'https://linktr.ee/vandigital'} >
-              <img src={VanDAO} height={"120px"} alt={'VanDAO'} />
-            </a>
-          </li>
-          <li key={3}>
-            <a href={'https://linktr.ee/graffbase'} > 
-              <img src={GraffBaseDAO} height={"90px"} alt={'GraffitiDAO'} />
+            <a href={'https://www.instagram.com/arturo_sandoval_arocha/?igshid=YmMyMTA2M2Y='}>
+              <img src={MetaJAX} alt={'MetaJAX'} width={"140px"} />
             </a>
           </li>
 
