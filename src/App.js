@@ -105,6 +105,14 @@ export default function App() {
     "fono-root-10",
     "fono-root-11"
   ];
+  const thirdAlbum = [
+    "fono-root-20",
+    "fono-root-21",
+    "fono-root-22",
+    "fono-root-23",
+    "fono-root-24",
+    "fono-root-25",
+  ];
 
   return (
     <HashRouter>
@@ -137,6 +145,18 @@ export default function App() {
             <AlbumDrop 
               albumName={"Falling Gracefully"}
               albumList={secondAlbum}
+              newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} 
+            />
+          }
+        />
+
+        <Route 
+          exact
+          path='/new-album'
+          element={
+            <AlbumDrop 
+              albumName={"New Album"}
+              albumList={thirdAlbum}
               newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} 
             />
           }
