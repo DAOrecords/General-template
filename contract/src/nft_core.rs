@@ -159,13 +159,15 @@ impl NonFungibleTokenCore for Contract {
         if let Some(token) = self.tokens_by_id.get(&token_id) {
             let metadata = self.token_metadata_by_id.get(&token_id).unwrap();
             let extra_obj: Extra = serde_json::from_str(&metadata.extra.clone().unwrap()).unwrap();
+            let link = format!("https://dweb.link/ipfs/{}", extra_obj.music_cid.unwrap());
+            log!("Link: {}", link);
 
             let modified_metadata = ModifiedTokenMetadata {
                 title: metadata.title,
                 description: metadata.description,
                 media: metadata.media,
                 media_hash: metadata.media_hash,
-                animation_url: extra_obj.music_cid,
+                animation_url: Some(link),
                 copies: metadata.copies,
                 issued_at: metadata.issued_at,
                 expires_at: metadata.expires_at,
