@@ -18,7 +18,7 @@ pub use crate::transfer::*;
 pub use crate::guestbook::*;
 pub use crate::withdraw::*;
 pub use crate::revenue::*;
-pub use crate::migration::*;
+//pub use crate::migration::*;
 
 mod internal;
 mod approval; 
@@ -33,7 +33,7 @@ mod transfer;
 mod guestbook;
 mod withdraw;
 mod revenue;
-mod migration;
+//mod migration;
 
 
 #[cfg(all(test, not(target_arch = "wasm32")))]

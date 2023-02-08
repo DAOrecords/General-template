@@ -158,10 +158,28 @@ impl NonFungibleTokenCore for Contract {
     fn nft_token(&self, token_id: TokenId) -> Option<JsonToken> {
         if let Some(token) = self.tokens_by_id.get(&token_id) {
             let metadata = self.token_metadata_by_id.get(&token_id).unwrap();
+            let extra_obj: Extra = serde_json::from_str(&metadata.extra.clone().unwrap()).unwrap();
+
+            let modified_metadata = ModifiedTokenMetadata {
+                title: metadata.title,
+                description: metadata.description,
+                media: metadata.media,
+                media_hash: metadata.media_hash,
+                animation_url: extra_obj.music_cid,
+                copies: metadata.copies,
+                issued_at: metadata.issued_at,
+                expires_at: metadata.expires_at,
+                starts_at: metadata.starts_at,
+                updated_at: metadata.updated_at,
+                extra: metadata.extra,
+                reference: metadata.reference,
+                reference_hash: metadata.reference_hash
+            };
+
             Some(JsonToken {
                 token_id,
                 owner_id: token.owner_id,
-                metadata,
+                metadata: modified_metadata,
                 approved_account_ids: token.approved_account_ids,
                 royalty: token.royalty,
                 revenue: token.revenue,
