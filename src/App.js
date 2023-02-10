@@ -105,6 +105,23 @@ export default function App() {
     "fono-root-10",
     "fono-root-11"
   ];
+  const thirdAlbum = [
+    "fono-root-21",
+    "fono-root-22",
+    "fono-root-23",
+    "fono-root-24",
+    "fono-root-25",
+    "fono-root-26",
+    "fono-root-27",
+    "fono-root-28",
+    "fono-root-29",
+    "fono-root-30",
+    "fono-root-31",
+    "fono-root-32",
+    "fono-root-33",
+    "fono-root-34",
+    "fono-root-35",
+  ]
 
   return (
     <HashRouter>
@@ -141,6 +158,19 @@ export default function App() {
             />
           }
         />
+
+        <Route 
+          exact
+          path='/life-can-be-beautiful'
+          element={
+            <AlbumDrop 
+              albumName={"Life Can Be Beautiful"}
+              albumList={thirdAlbum}
+              newAction={newAction} configObj={configObj} openGuestBook={openGuestBook} setGuestBook={setGuestBook} setShowActivity={setShowActivity} showActivity={showActivity} actionHistory={actionHistory} setShowWallet={setShowWallet} showWallet={showWallet} 
+            />
+          }
+        />
+
 
         <Route 
           exact
