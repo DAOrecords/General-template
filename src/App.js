@@ -131,7 +131,7 @@ export default function App() {
           exact
           path='/'
           element={
-            <Navigate to={'/falling-gracefully'} />
+            <Navigate to={'/life-can-be-beautiful'} />
           }
         />
 
