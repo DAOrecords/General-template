@@ -12,7 +12,7 @@ export default function Buy({tokenId, price, newAction}) {
     }
 
     const buyPromise = new Promise(async (resolve, reject) => {
-      const contract = window.contract.contractId;
+      const contract = window.contractName;
       window.history.pushState({}, document.title, "/" + `?contract=${contract}`);
       const buyResult = await buyNFTfromVault(contract, tokenId, price);
       if (buyResult) {

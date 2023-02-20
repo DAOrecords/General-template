@@ -22,7 +22,7 @@ export default function Wallet({setShowWallet, showWallet}) {
   if (window.accountId.slice(-8) === ".testnet") network = "Testnet";
   if (window.accountId.slice(-5) === ".near") network = "Mainnet";
 
-  if (!window.walletConnection.isSignedIn()) {
+  if (!window.wallet.walletSelector.isSignedIn()) {
     return (
       <>
         <div className="controls">

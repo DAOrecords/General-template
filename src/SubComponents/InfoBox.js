@@ -3,6 +3,7 @@ import Box from './Box';
 import Desc from '../SubComponents/Desc';
 import ArtistList from '../SubComponents/ArtistList';
 import Title from '../SubComponents/Title';
+import { isTestnet } from '../utils';
     
 
 export default function InfoBox({tokenId, metadata, albumName, newAction}) {
@@ -24,8 +25,8 @@ export default function InfoBox({tokenId, metadata, albumName, newAction}) {
 
 
   useEffect(async () => {
-    const contract = window.contract.contractId;
-    const testnet = window.contract.account.connection.networkId === "testnet"; 
+    const contract = window.contractName;
+    const testnet = isTestnet(); 
     console.log("fetch: ", `https://daorecords.io:8443/get/collaborators?root_id=${rootID}&contract=${contract}&${testnet ? "testnet=1" : ""}`)
     await fetch(`https://daorecords.io:8443/get/collaborators?root_id=${rootID}&contract=${contract}&${testnet ? "testnet=1" : ""}`)
       .then((res) => res.json())

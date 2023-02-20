@@ -3,9 +3,11 @@ import { utils } from 'near-api-js';
 import nearLogo from '../assets/ic_near.svg';
 import placeholder from '../assets/DaoLogo.svg';
 import playIcon from '../assets/play.svg';
+import { isTestnet, stake_token, getStakedNFTRewards } from '../utils';
 
 
-export default function NftCard({playClicked, artistList, openTransfer, index, metadata, tokenId, contract}) {
+export default function NftCard({playClicked, artistList, openTransfer, index, metadata, tokenId, contract, isStaked, stakedNFTId}) {
+  const [rewardsEarned, setRewardsEarned] = useState(-1);
   const extra = JSON.parse(metadata.extra);
   const priceInNear = utils.format.formatNearAmount(extra.original_price);
   const lastDash = tokenId.lastIndexOf('-');
@@ -19,17 +21,31 @@ export default function NftCard({playClicked, artistList, openTransfer, index, m
   }
 
   useEffect(async () => {
-    const testnet = window.contract.account.connection.networkId === "testnet"; 
+    const testnet = isTestnet();
+    console.log("refreshing data..."); 
+    await fetch("https://daorecords.io:8443/fill/nfts_by_owner?testnet=1");    
+
     console.log("fetch: ", `https://daorecords.io:8443/get/thumbnail?root_id=${rootID}&contract=${contract}&${testnet ? "testnet=1" : ""}`)
     await fetch(`https://daorecords.io:8443/get/thumbnail?root_id=${rootID}&contract=${contract}&${testnet ? "testnet=1" : ""}`)
       .then((res) => res.json())
       .then((json) => setPicture("data:image/webp;base64," + json.thumbnail))
       .catch((err) => console.error("Error while fetching base64 image ", err));
+    
+    if(isStaked){
+      var rewards = await getStakedNFTRewards(stakedNFTId);
+      setRewardsEarned(rewards);
+    }
   }, [tokenId, contract]);
 
-  function stakeClicked(event) {
+  async function stakeClicked(event) {
     event.stopPropagation();
-    window.alert("Stake clicked. This is not implemented yet.");
+    // window.alert("Stake clicked. This is not implemented yet.");
+    var result = await stake_token(tokenId, contract);
+    if(result){
+      window.alert("Staked successfully");
+    } else {
+      window.alert("Staking failed");
+    }
   }
 
   function sellClicked(event) {
@@ -61,10 +77,13 @@ export default function NftCard({playClicked, artistList, openTransfer, index, m
             <p className="nftCardNearPrice">{formatNumber(priceInNear,3)}</p>
             <img src={nearLogo} alt={'N'}></img>
           </div>
-          {false && <div className="nftCardButtons">
+          {!isStaked && <div className="nftCardButtons">
             <button onClick={(e) => stakeClicked(e)} className="nftCardSecondaryButton">Stake</button>
-            <button onClick={(e) => sellClicked(e)} className="nftCardPrimaryButton">Sell</button>
-          </div>}
+            { false && <button onClick={(e) => sellClicked(e)} className="nftCardPrimaryButton">Sell</button> }
+          </div> }
+          { isStaked && <div style={{color: "white"}}>
+              Rewards Earned: {rewardsEarned} $SPLASH
+          </div> }
         </div>
       </button>
     </>

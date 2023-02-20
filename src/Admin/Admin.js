@@ -229,7 +229,7 @@ export default function Admin({newAction, vault}) {
     })
   }
 
-  if (!window.walletConnection.isSignedIn()) return <ConnectWallet />
+  if (!window.wallet.walletSelector.isSignedIn()) return <ConnectWallet />
 
 
   return (

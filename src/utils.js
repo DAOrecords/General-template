@@ -1,8 +1,9 @@
 import { connect, Contract, keyStores, WalletConnection, utils, KeyPair, providers } from 'near-api-js';
 import * as nearAPI from "near-api-js";
 const CryptoJS = require('crypto-js');
+const STAKING_CONTRACT = "staking.daorecordsio.testnet";
 
-const mode = 'mainnet';       // 'mainnet' || 'development'
+const mode = 'development';       // 'mainnet' || 'development'
 
 const provider = new providers.JsonRpcProvider(
   "https://rpc.mainnet.near.org"
@@ -49,30 +50,11 @@ async function getRealConfig(env) {
 }
 
 export async function getContractName() {
-  const fetchObj = await fetch(window.location.origin + window.location.pathname + '/projectConfig.json')
-  .then((response) => response.json())
-  .catch((err) => console.error(err));
-  return fetchObj.contractName;
-}
-
-
-// Initialize contract & set global variables
-export async function initContract() {
-  const nearConfig = await getRealConfig(mode);
-  const near = await connect(Object.assign({ deps: { keyStore: new keyStores.BrowserLocalStorageKeyStore() } }, nearConfig));
-  
-  window.walletConnection = new WalletConnection(near)  
-  window.accountId = window.walletConnection.getAccountId()                                // Getting the Account ID. If still unauthorized, it's just empty string
-  
-  window.contract = await new Contract(window.walletConnection.account(), nearConfig.contractName, {
-    viewMethods: ['nft_metadata', 'nft_token', 'nft_tokens_for_owner', 'nft_tokens', 'get_crust_key', 'get_next_buyable', 'view_guestbook_entries', 'nft_token_details_for_list'],
-    changeMethods: ['new_default_meta', 'new', 'mint_root', 'set_crust_key', 'buy_nft_from_vault', 'transfer_nft', 'create_guestbook_entry', 'withdraw', 'copy'],
-  })
+  return window.contractName;
 }
 
 export async function mintRootNFT(title, desc, imageCID, imageHash, musicCID, musicHash, price, revenue, foreverRoyalty) {
   let success = false;
-  const contractAccount = (await getRealConfig(mode)).contractName;
   
   const root_args = {
     receiver_id: window.accountId,
@@ -104,12 +86,13 @@ export async function mintRootNFT(title, desc, imageCID, imageHash, musicCID, mu
   const gas = 100000000000000;
   const amount = utils.format.parseNearAmount("0.1");
 
-  await window.contract.mint_root(root_args, gas, amount)
+  var contract = window.contractName;
+  await window.wallet.callMethod({ method: 'mint_root', args: root_args, gas, contractId: contract, deposit: amount })
     .then((msg) => { 
       console.log("Success! (mint root)", msg); 
       success = true; 
     })
-    .catch((err) => console.log("Error while minting root: ", err))
+    .catch((err) => console.log("Error while minting root: ", err));
 
   return success;
 }
@@ -121,7 +104,8 @@ export async function setSeed(seed) {
 
   const encryptedKey = CryptoJS.AES.encrypt(seed, keyPair.secretKey).toString();
 
-  await window.contract.set_crust_key({encrypted_key: encryptedKey})
+  var contract = window.contractName;
+  await window.wallet.callMethod({ method: 'set_crust_key', args: { encrypted_key: encryptedKey }, contractId: contract })
     .then((msg) => console.log("The Contract says ", msg))
     .catch((err) => console.error("Error occured while uploading encrypted key:", err));
 }
@@ -133,7 +117,8 @@ export async function getSeed() {
   const keyPair = await keyStore.getKey("testnet", accountId);
   let encryptedKey = null;
 
-  await window.contract.get_crust_key()
+  var contract = window.contractName;
+  await window.wallet.viewMethod({ method: 'get_crust_key', contractId: contract })
     .then((result) => encryptedKey = result)
     .catch((err) => {console.log("Error occured while fetching encrypted key: ", err); console.log(err)})
   if (encryptedKey) {
@@ -144,7 +129,7 @@ export async function getSeed() {
 }
 
 export async function buyNFTfromVault(contract, tokenId, price) {
-  window.contract.contractId = contract;
+  // window.contract.contractId = contract;
   const args = {
     token_id: tokenId,
   };
@@ -157,7 +142,7 @@ export async function buyNFTfromVault(contract, tokenId, price) {
   console.log("nearAmount: ", nearAmount)
   console.log("amount: ", amount)
   
-  await window.contract.buy_nft_from_vault(args, gas, amount)
+  await window.wallet.callMethod({ method: 'buy_nft_from_vault', args, contractId: contract, deposit: amount, gas: gas })
     .then((result) => console.log("Buy-result: ", result))
     .catch((err) => console.error("Error during buy-from-Vault: ", err));
 }
@@ -165,18 +150,17 @@ export async function buyNFTfromVault(contract, tokenId, price) {
 export async function getBuyableTokens() {
   let rootIDs = null;
   let inVault = null;
-  const contractAccount = (await getRealConfig(mode)).contractName
 
   console.log(window.accountId)
-  console.log(contractAccount)
   const options = {
     limit: 999999,
   }
 
-  await window.contract.nft_tokens(options)
+  var contract = window.contractName;
+  await window.wallet.viewMethod({ method: 'nft_tokens', contractId: contract, args: options })
     .then((response) => {    
       console.log("RESPONSE: ", response)                                      
-      inVault = response.filter((nft) => nft.owner_id === contractAccount);
+      inVault = response.filter((nft) => nft.owner_id === contract);
       rootIDs = inVault.map((nft) => {                             // First we make a list of the NFTs that are in the Vault
         const pos = nft.token_id.lastIndexOf("-");
         return nft.token_id.substr(0, pos);
@@ -186,7 +170,7 @@ export async function getBuyableTokens() {
     .catch((err) => console.error(err))
     
     const nextNFTs = await Promise.all(rootIDs.map(async (id) => { // We get the next buyable NFT for each root (lowest generation)
-      const result = await getNextBuyableInstance(contractAccount, id);
+      const result = await getNextBuyableInstance(contract, id);
       return result;
     }))
     const finalRes = nextNFTs.map((id) => inVault.find((nft) => {
@@ -197,29 +181,13 @@ export async function getBuyableTokens() {
 }
 
 export async function getNextBuyableInstance(contract, rootId) {
-  let nextId = null;
-  let rawResult = null;
   const args = {
     root_id: rootId
   }
 
   try {
-    const stringObj = JSON.stringify(args);
-    const base64Obj = btoa(stringObj);
+    const nextId = await window.wallet.viewMethod({ method: 'get_next_buyable', args, contractId: contract });
 
-    const queryObj = {
-      request_type: "call_function",
-      account_id: contract,
-      method_name: "get_next_buyable",
-      args_base64: base64Obj,
-      finality: "optimistic",
-    };
-   
-    if (mode === "mainnet")     rawResult = await provider.query(queryObj);
-    if (mode === "development") rawResult = await testnetProvider.query(queryObj);
-    
-
-    nextId = JSON.parse(Buffer.from(rawResult.result).toString());
     return nextId;
   } catch (error) {
     console.error("There was an error while trying to get the id of the next buyable NFT: ", error);
@@ -228,14 +196,18 @@ export async function getNextBuyableInstance(contract, rootId) {
 
 export async function getListForAccount() {
   let result = null;
-  const testnet = window.contract.account.connection.networkId === "testnet";
   
   const options = {
     account_id: window.accountId,
     limit: 10000,
   }
 
-  await fetch(`https://daorecords.io:8443/get/nft_list_for_owner?user=${window.accountId}&${testnet ? "testnet=1" : ""}`)
+  var url = "https://daorecords.io:8443/get/nft_list_for_owner?user=";
+  if(isTestnet()){
+    url = "https://daorecords.io:8443/get/nft_list_for_owner?testnet=1&user=";
+  }
+
+  await fetch(url + window.accountId)
     .then((res) => res.json())
     .then((response) => {
       console.log("Response: ", response);
@@ -247,12 +219,15 @@ export async function getListForAccount() {
 }
 
 export async function getNftListWithThumbnails(start, pageSize) {
-  const testnet = window.contract.account.connection.networkId === "testnet"; 
   // We don't use start and pageSize yet
 
   let result = [];
-
-  await fetch(`https://daorecords.io:8443/get/nft_list?${testnet ? "testnet=1" : ""}`)
+  var url = "https://daorecords.io:8443/get/nft_list";
+  if(isTestnet()){
+    url = "https://daorecords.io:8443/get/nft_list?testnet=1";
+  }
+  
+  await fetch(url)
     .then((res) => res.json())
     .then((response) => {
       result = response.list;
@@ -263,10 +238,13 @@ export async function getNftListWithThumbnails(start, pageSize) {
 }
 
 export async function getNumberOfNfts() {
-  const testnet = window.contract.account.connection.networkId === "testnet"; 
   let result = null;
+  var url = "https://daorecords.io:8443/get/nft_list_length";
+  if(isTestnet()){
+    url = "https://daorecords.io:8443/get/nft_list_length?testnet=1";
+  }
 
-  await fetch(`https://daorecords.io:8443/get/nft_list_length?${testnet ? "testnet=1" : ""}`)
+  await fetch(url)
     .then((res) => res.json())
     .then((response) => {
       result = response.nft_count;
@@ -285,7 +263,8 @@ export async function transferNft(tokenId, receiverId) {
   const gas = 100000000000000;
   const amount = utils.format.parseNearAmount("0.1");
 
-  await window.contract.transfer_nft(args, gas, amount)
+  var contract = window.contractName;
+  await window.wallet.callMethod({ method: 'transfer_nft', args, gas, contractId: contract, deposit: amount  })
     .then((msg) => { 
       console.log("Success! (mint root)", msg); 
       success = true; 
@@ -305,7 +284,8 @@ export async function sendGuestBookEntry(text) {
   const gas = 100000000000000;
   const amount = utils.format.parseNearAmount("0.1");  
 
-  await window.contract.create_guestbook_entry({ new_entry: newEntry }, gas, amount)
+  var contract = window.contractName;
+  await window.wallet.callMethod({ method: 'create_guestbook_entry', args: { new_entry: newEntry }, gas, contractId: contract, deposit: amount  })
     .then((resp) => console.log("Response from create_guestbook_entry: ", resp))
     .catch((err) => console.error("Error from create_guestbook_entry: ", err));
 }
@@ -318,7 +298,8 @@ export async function getGuestBookEntries() {
     limit: 1000000,
   }
 
-  await window.contract.view_guestbook_entries(options)
+  var contract = window.contractName;
+  await window.wallet.viewMethod({ method: 'view_guestbook_entries', args: options, contractId: contract })
     .then((response) => {
       console.log("Response: ", response);
       result = response;
@@ -330,27 +311,11 @@ export async function getGuestBookEntries() {
 
 // Get details for a provided NFT list 
 export async function getNftDetailsForList(contract, list) {
-  let rawResult = null;
-  const params = {
+  const args = {
     token_list: list
   }
 
-  const stringObj = JSON.stringify(params);
-  const base64Obj = btoa(stringObj);
- 
-  const queryObj = {
-    request_type: "call_function",
-    account_id: contract,
-    method_name: "nft_token_details_for_list",
-    args_base64: base64Obj,
-    finality: "optimistic",
-  }
-
-  if (mode === "mainnet")     rawResult = await provider.query(queryObj);
-  if (mode === "development") rawResult = await testnetProvider.query(queryObj);
-
-  const result = JSON.parse(Buffer.from(rawResult.result).toString());
-
+  const result = await window.wallet.viewMethod({ method: 'nft_token_details_for_list', args, contractId: contract });
   return result;
 }
 
@@ -369,7 +334,8 @@ export async function getAllFromRoot(rootId) {
   }
   let nftTree = [];                                                                        // NFTs that belong to the given root
 
-  await window.contract.nft_tokens(options)
+  var contract = window.contractName;
+  await window.wallet.viewMethod({ method: 'nft_tokens', args: options, contractId: contract })
     .then((totalList) => {                                          
       nftTree = totalList.filter((item) => item.token_id.includes(rootId));
     })
@@ -385,7 +351,8 @@ export async function totalMinted() {
     limit: 999999999999,
   }
 
-  await window.contract.nft_tokens(options)
+  var contract = window.contractName;
+  await window.wallet.viewMethod({ method: 'nft_tokens', args: options, contractId: contract })
     .then((response) => {                                          
       result = response.length;
     })
@@ -401,7 +368,8 @@ export async function withdrawFunds(amount) {
     amount: formattedAmount
   }
 
-  await window.contract.withdraw(options)
+  var contract = window.contractName;
+  await window.wallet.callMethod({ method: 'withdraw', args: options, contractId: contract  })
     .then((response) => {                                          
       console.log("Success! (withdraw)");
       result = response;
@@ -412,10 +380,12 @@ export async function withdrawFunds(amount) {
 }
 
 export async function getBalance() {
-  const near = await connect(Object.assign({ deps: { keyStore: new keyStores.BrowserLocalStorageKeyStore() } }, await getRealConfig(mode)));
-  const account = await near.account(window.accountId);
-  const yocto =  await account.getAccountBalance();
-  return utils.format.formatNearAmount(yocto.available);
+  if(window.accountId){
+    const near = await connect(Object.assign({ deps: { keyStore: new keyStores.BrowserLocalStorageKeyStore() } }, await getRealConfig(mode)));
+    const account = await near.account(window.accountId);
+    const yocto =  await account.getAccountBalance();
+    return utils.format.formatNearAmount(yocto.available);
+  }
 }
 
 export async function verify_sha256(blob, hash) {
@@ -427,10 +397,73 @@ export async function verify_sha256(blob, hash) {
 }
 
 export function logout() {
-  window.walletConnection.signOut()
+  window.wallet.signOut();
   //window.location.replace(window.location.origin + window.location.pathname)               // reload page
 }
 
 export async function login() {
-  window.walletConnection.requestSignIn((await getRealConfig(mode)).contractName)
+  window.wallet.signIn();
+}
+
+export async function stake_token(token_id, contract) {
+  let result = false;
+  const gas = 200000000000000;
+  const amount = 1; //utils.format.parseNearAmount("0.1");
+  const args = {
+    receiver_id: STAKING_CONTRACT,
+    token_id: token_id,
+    msg: ""
+  }
+
+  var contract = window.contractName;
+  await window.wallet.callMethod({ method: 'nft_transfer_call', args, contractId: contract, deposit: amount, gas  })
+    .then((response) => {
+      response == true ? console.log("Successfully staked NFT!!") : console.log("Staking Failed");
+      result = response;
+    })
+    .catch((err) => console.error(err));
+
+  return result;
+}
+
+export async function getStakedNFTsForUser(){
+  var result = [];
+  var contract = STAKING_CONTRACT;
+  const options = {
+    owner: window.accountId
+  }
+  await window.wallet.viewMethod({ method: 'get_all_stakedNFTs_for_owner', args: options, contractId: contract })
+    .then((response) => {
+      if(response.length > 0){
+        result = response.map((item) => {
+          return {
+            ...item,
+            contract: item.issuing_contract,
+            nft_id: item.token_id
+          }
+        });
+      }
+    })
+    .catch((err) => console.error(err));
+
+    return result;
+}
+
+export async function getStakedNFTRewards(staked_nft_id){  
+  var result = -2;
+  var contract = STAKING_CONTRACT;
+  const options = {
+    staked_nft_id
+  }
+  await window.wallet.viewMethod({ method: 'get_stakedNFT_rewards', args: options, contractId: contract })
+    .then((response) => {
+      result = response.rewards_accumulated / 100000000;
+    })
+    .catch((err) => console.error(err));
+
+    return result;
+}
+
+export function isTestnet(){
+  return window.wallet.network == "testnet";
 }

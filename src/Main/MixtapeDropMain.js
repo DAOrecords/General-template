@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getBuyableTokens, verify_sha256 } from '../utils';
+import { getBuyableTokens, isTestnet, verify_sha256 } from '../utils';
 import 'regenerator-runtime/runtime';
 import LineVisualizer from '../SubComponents/Equalizer';
 import MixtapeGrid from './MixtapeGrid';
@@ -25,7 +25,7 @@ export default function MixtapeDrop({newAction, openGuestBook, setGuestBook, set
   React.useEffect(async () => {    
     const urlParams = window.location.search;
     const urlObj = new URLSearchParams(document.location.search);
-    const testnet = window.contract.account.connection.networkId === "testnet"; 
+    const testnet = isTestnet(); 
     if (urlParams.includes('errorCode')) {
       newAction({
         errorMsg: "There was an error while processing the transaction!", errorMsgDesc: urlObj.get('errorCode'),

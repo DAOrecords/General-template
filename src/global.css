@@ -579,7 +579,7 @@ main {
   margin-right: 64px;
   height: calc(100% - var(--nav-size) - var(--footer-size));
   background: unset;
-  overflow: unset;
+  overflow: auto;
 }
 #mynftsTitle {
   font-family: GeneralSans;
@@ -749,7 +749,7 @@ main {
 
 .title {
   margin: auto;
-  margin-top: 48px;
+  /* margin-top: 48px; */
   text-align: center;
   font-style: normal;
   font-weight: bold;
