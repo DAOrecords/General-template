@@ -3,7 +3,7 @@ import { ToastContainer, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from '../SubComponents/Footer';
 import TopMenu from '../SubComponents/MyNFTsTopMenu';
-import { getListForAccount, getNftDetailsForList, isTestnet, getStakedNFTsForUser } from '../utils';
+import { getListForAccount, getNftDetailsForList, isTestnet, getStakedNFTsForUser, getWhitelistedContracts } from '../utils';
 import NftCard from '../SubComponents/NftCard';
 import artistLists from '../artistLists.json';
 import { useNavigate } from 'react-router-dom';
@@ -16,6 +16,7 @@ export default function MyNFTs({newAction, openGuestBook, setGuestBook, setShowW
   const [list, setList] = useState([]);
   const [nftPages, setNftPages] = useState([]);
   const [stakedNFTPages, setStakedNFTPages] = useState([]);
+  const [whitelistedContracts, setWhitelistedContracts] = useState([]);
   const [selectedPage, setSelectedPage] = useState(0);  
   const [filters, setFilters] = useState(mockFilters);
   const [selectedFilter, setSelectedFilter] = useState(null);
@@ -96,42 +97,15 @@ export default function MyNFTs({newAction, openGuestBook, setGuestBook, setShowW
     const stakedNFTList = await getStakedNFTsForUser();
     console.log("staked nftList", stakedNFTList);
 
-    // let nftDetailsLists = nftList.filter((nftItem, index) =>                                  // This will contain multiple lists, each element of the array is a contract
-    //                         nftList.findIndex(nftObj => nftObj.contract === nftItem.contract) === index)
-    //                                 .map((item) => {return { contract: item.contract, nftDetailsList: null }});
-
-    // for (let i = 0; i < nftDetailsLists.length; i++) {
-    //   const contract = nftDetailsLists[i].contract;
-    //   const list = nftList.filter((nft) => nft.contract === contract)
-    //                       .map(nft => nft.nft_id);
-
-    //   nftDetailsLists[i].nftDetailsList = await getNftDetailsForList(contract, list);
-    // }
-    // console.log("nftDetailsLists", nftDetailsLists)
-
-    // const mergedNftList = nftList.map((nftItem, i) => {
-    //   const correspondingList = nftDetailsLists.filter((currentList) => currentList.contract === nftItem.contract)[0].nftDetailsList;
-    //   const correspondingDetails = correspondingList.filter((currentNft) => currentNft.token_id === nftItem.nft_id)[0];
-    //   const newObj = { ...nftItem, ...correspondingDetails };
-    //   return newObj;
-    // });
-
-    // console.log("mergedNftList: ", mergedNftList)
-
-    // let nPages = [];
-    // let page = 0;
-    // for (let i = 0; i < mergedNftList.length; i = i + cardFitCount) {
-    //   nPages[page] = mergedNftList.slice(i, i+cardFitCount);
-    //   page++;
-    // }
-    // console.log("nftPages: ", nPages);
-
     var myNFTsResult = await getPagedList(nftList);
     var stakedNFTsResult = await getPagedList(stakedNFTList);
 
     setNftPages(myNFTsResult.pages);
     setStakedNFTPages(stakedNFTsResult.pages);
     setList(myNFTsResult.mergedList);
+
+    var whitelistedContracts = await getWhitelistedContracts();
+    setWhitelistedContracts(whitelistedContracts);
   }, []);
 
 
@@ -217,6 +191,7 @@ export default function MyNFTs({newAction, openGuestBook, setGuestBook, setShowW
                       metadata={item.metadata}
                       playClicked={playClicked}
                       isStaked={false}
+                      whitelistedContracts={whitelistedContracts}
                     />
                   </li>
                 ))}
@@ -241,6 +216,7 @@ export default function MyNFTs({newAction, openGuestBook, setGuestBook, setShowW
                       metadata={item.metadata}
                       playClicked={playClicked}
                       isStaked={true}
+                      whitelistedContracts={whitelistedContracts}
                       stakedNFTId={item.id}
                     />
                   </li>

@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { utils } from 'near-api-js';
 import nearLogo from '../assets/ic_near.svg';
+import splashLogo from "../assets/splash_logo.png";
 import placeholder from '../assets/DaoLogo.svg';
 import playIcon from '../assets/play.svg';
 import { isTestnet, stake_token, getStakedNFTRewards } from '../utils';
 
 
-export default function NftCard({playClicked, artistList, openTransfer, index, metadata, tokenId, contract, isStaked, stakedNFTId}) {
-  const [rewardsEarned, setRewardsEarned] = useState(-1);
+export default function NftCard({playClicked, artistList, openTransfer, index, metadata, tokenId, contract, isStaked, whitelistedContracts, stakedNFTId}) {
+  const [rewardsEarned, setRewardsEarned] = useState(-1);  
   const extra = JSON.parse(metadata.extra);
   const priceInNear = utils.format.formatNearAmount(extra.original_price);
   const lastDash = tokenId.lastIndexOf('-');
@@ -78,11 +79,13 @@ export default function NftCard({playClicked, artistList, openTransfer, index, m
             <img src={nearLogo} alt={'N'}></img>
           </div>
           {!isStaked && <div className="nftCardButtons">
-            <button onClick={(e) => stakeClicked(e)} className="nftCardSecondaryButton">Stake</button>
+            { whitelistedContracts.includes(contract) && <button onClick={(e) => stakeClicked(e)} className="nftCardSecondaryButton">Stake</button>}
             { false && <button onClick={(e) => sellClicked(e)} className="nftCardPrimaryButton">Sell</button> }
           </div> }
-          { isStaked && <div style={{color: "white"}}>
-              Rewards Earned: {rewardsEarned} $SPLASH
+          { isStaked && <div className='staking-rewards-container' style={{color: "white"}}>
+              <p style={{color: "#FFC749"}}>Rewards Earned: </p>
+              <p>{rewardsEarned}</p>
+              <img src={splashLogo} />
           </div> }
         </div>
       </button>

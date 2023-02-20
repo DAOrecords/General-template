@@ -2452,3 +2452,22 @@ input[type="range"] {
     text-align: center;
   }
 }
+
+.staking-rewards-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  margin-top: 19px;
+  font-family: GeneralSans;
+}
+
+.staking-rewards-container p{
+  font-size: large;
+  margin-right: 5px;
+}
+
+.staking-rewards-container img{
+  border-radius: 50%;
+  height: 25px;
+}

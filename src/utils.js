@@ -464,6 +464,18 @@ export async function getStakedNFTRewards(staked_nft_id){
     return result;
 }
 
+export async function getWhitelistedContracts(){
+  var result = [];
+  var contract = STAKING_CONTRACT;
+  await window.wallet.viewMethod({ method: 'get_whitelisted_contracts', contractId: contract })
+    .then((response) => {
+      result = response;
+    })
+    .catch((err) => console.error(err));
+
+  return result;
+}
+
 export function isTestnet(){
   return window.wallet.network == "testnet";
 }
